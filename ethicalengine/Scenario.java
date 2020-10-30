@@ -13,13 +13,13 @@ public class Scenario {
 	public Scenario(Persona[] passengers, Persona[] pedestrians, boolean isLegalCrossing) {
 
 	    this.passengers = new ArrayList<Persona>();
-        for (Persona pass : passengers) {
-            this.passengers.add(pass);
+        for (Persona passenger : passengers) {
+            this.passengers.add(passenger);
         }
 
         this.pedestrians = new ArrayList<Persona>();
-        for (Persona pedes : pedestrians) {
-            this.pedestrians.add(pedes);
+        for (Persona pedestrian : pedestrians) {
+            this.pedestrians.add(pedestrian);
         }
 
         this.isLegalCrossing = isLegalCrossing;
@@ -27,16 +27,16 @@ public class Scenario {
 
     // accessor methods
     public boolean hasYouInCar() {
-	    for (Persona pass : passengers) {
-	        if (pass instanceof Human && ((Human) pass).isYou()) {
+	    for (Persona passenger : passengers) {
+	        if (passenger instanceof Human && ((Human) passenger).isYou()) {
 	            return true;
             }
         }
 	    return false;
     }
     public boolean hasYouInLane() {
-        for (Persona pedes : pedestrians) {
-            if (pedes instanceof Human && ((Human) pedes).isYou()) {
+        for (Persona pedestrian : pedestrians) {
+            if (pedestrian instanceof Human && ((Human) pedestrian).isYou()) {
                 return true;
             }
         }
@@ -64,6 +64,40 @@ public class Scenario {
     }
     public int getPedestrianCount() {
 	    return pedestrians.size();
+    }
+
+    public int getTotalOfHumanAges() {
+	    int total = 0;
+
+	    for (Persona passenger : passengers) {
+	        if (passenger instanceof Human) {
+	            total += passenger.getAge();
+            }
+        }
+	    for (Persona pedestrian : pedestrians) {
+	        if (pedestrian instanceof Human) {
+	            total += pedestrian.getAge();
+            }
+        }
+
+	    return total;
+    }
+
+    public int getHumanCount() {
+        int count = 0;
+
+        for (Persona passenger : passengers) {
+            if (passenger instanceof Human) {
+                count++;
+            }
+        }
+        for (Persona pedestrian : pedestrians) {
+            if (pedestrian instanceof Human) {
+                count++;
+            }
+        }
+
+        return count;
     }
 
     // mutator method

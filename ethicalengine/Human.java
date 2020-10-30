@@ -11,15 +11,16 @@ public class Human extends Persona {
     private static final int MAX_AGE_BABY = 4;
     private static final int MAX_AGE_CHILD = 16;
     private static final int MAX_AGE_ADULT = 68;
+    private static final int NUM_OF_CHARACTERISTICS = 7;
+
+    // enumeration types
+    public enum AgeCategory {BABY, CHILD, ADULT, SENIOR};
+    public enum Profession {DOCTOR, CEO, CRIMINAL, HOMELESS, UNEMPLOYED, ENGINEER, BUILDER, NONE}
 
     // instance variables
     private Profession profession;
     private boolean isPregnant;
     private boolean isYou;
-
-    public enum AgeCategory {BABY, CHILD, ADULT, SENIOR};
-    // TODO: ADD AT LEAST TWO MORE CATEGORIES OF PROFESSION I DEEM FEASIBLE
-    public enum Profession {DOCTOR, CEO, CRIMINAL, HOMELESS, UNEMPLOYED, CAT1, CAT2, NONE}
 
     // constructors
     public Human() {
@@ -85,6 +86,20 @@ public class Human extends Persona {
     }
     public boolean isYou() {
         return isYou;
+    }
+
+    public String[] getCharacteristics() {
+
+        String[] characteristics = new String[NUM_OF_CHARACTERISTICS];
+        characteristics[0] = "human";
+        characteristics[1] = getAgeCategory().toString().toLowerCase();
+        characteristics[2] = getGender().toString().toLowerCase();
+        characteristics[3] = getBodyType().toString().toLowerCase();
+        characteristics[4] = getProfession().toString().toLowerCase();
+        characteristics[5] = isPregnant() ? "pregnant" : "";
+        characteristics[6] = isYou() ? "you" : "";
+
+        return characteristics;
     }
 
     // mutator methods

@@ -1,6 +1,6 @@
 package ethicalengine;
 
-public class Persona {
+public abstract class Persona {
 
     /*
     class invariant: age >= 0
@@ -10,14 +10,14 @@ public class Persona {
     private static final int MIN_AGE = 0;
     private static final int DEFAULT_AGE = 30;
 
+    // enumeration types
+    public enum Gender {FEMALE, MALE, UNKNOWN};
+    public enum BodyType {AVERAGE, ATHLETIC, OVERWEIGHT, UNSPECIFIED};
+
     // instance variables
     private int age;
     private Gender gender;
     private BodyType bodyType;
-
-    // enumeration types
-    public enum Gender {FEMALE, MALE, UNKNOWN};
-    public enum BodyType {AVERAGE, ATHLETIC, OVERWEIGHT, UNSPECIFIED};
 
     // constructors
     public Persona() {
@@ -49,6 +49,8 @@ public class Persona {
         return bodyType;
     }
 
+    public abstract String[] getCharacteristics();
+
     // mutator methods
     public void setAge(int age) {
         if (age >= MIN_AGE) {
@@ -61,4 +63,5 @@ public class Persona {
     public void setBodyType(BodyType bodyType) {
         this.bodyType = bodyType;
     }
+
 }

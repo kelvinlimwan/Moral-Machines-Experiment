@@ -5,26 +5,24 @@ import java.util.Random;
 public class ScenarioGenerator {
 
     // constant variables
+    private static final String[] SPECIES_LIST = {"dog", "cat", "rabbit", "possum", "kangaroo"};
     private static final int DEFAULT_MIN_COUNT = 1;
     private static final int DEFAULT_MAX_COUNT = 5;
     private static final int AGE_CEILING = 120;
-    private static final int NUM_OF_PROFESSIONS = 7;
     private static final int NUM_OF_GENDERS = 2;
     private static final int NUM_OF_BODY_TYPES = 3;
+    private static final int NUM_OF_PROFESSIONS = 7;
 
     // instance variables
-    private long seed;
+    private Random random;
     private int passengerCountMinimum;
     private int passengerCountMaximum;
     private int pedestrianCountMinimum;
     private int pedestrianCountMaximum;
-    private Random random;
 
     // constructors
     public ScenarioGenerator() {
         random = new Random();
-        seed = random.nextLong();
-        random.setSeed(seed);
 
         this.passengerCountMinimum = DEFAULT_MIN_COUNT;
         this.passengerCountMaximum = DEFAULT_MAX_COUNT;
@@ -37,7 +35,6 @@ public class ScenarioGenerator {
     public ScenarioGenerator(long seed, int passengerCountMinimum, int passengerCountMaximum,
                              int pedestrianCountMinimum, int pedestrianCountMaximum) {
 
-        this.seed = seed;
         random = new Random(seed);
 
         this.passengerCountMinimum = passengerCountMinimum;
@@ -92,13 +89,10 @@ public class ScenarioGenerator {
 
     public Animal getRandomAnimal() {
 
-        String[] speciesList = {"dog", "cat", "possum", "fox", "kangaroo", "dingo", "wombat",
-                "wallaby", "echidna", "quokka"};
-
         int age = random.nextInt(AGE_CEILING);
         Persona.Gender gender = Persona.Gender.values()[random.nextInt(NUM_OF_GENDERS)];
         Persona.BodyType bodyType = Persona.BodyType.values()[random.nextInt(NUM_OF_BODY_TYPES)];
-        String species = speciesList[random.nextInt(speciesList.length)];
+        String species = SPECIES_LIST[random.nextInt(SPECIES_LIST.length)];
         boolean isPet = random.nextBoolean();
 
         return new Animal(age, gender, bodyType, species, isPet);
@@ -109,7 +103,7 @@ public class ScenarioGenerator {
         // create random passengers array
         Persona[] passengers = new Persona[passengerCountMinimum +
                 random.nextInt(passengerCountMaximum - passengerCountMinimum + 1)];
-        int humanPassengerCount = random.nextInt(passengers.length + 1);
+        int humanPassengerCount = random.nextInt(passengers.length) + 1;
         for (int i = 0; i < passengers.length; i++) {
             if (i < humanPassengerCount) {
                 passengers[i] = getRandomHuman();
@@ -121,7 +115,7 @@ public class ScenarioGenerator {
         // create random pedestrians array
         Persona[] pedestrians = new Persona[pedestrianCountMinimum +
                 random.nextInt(pedestrianCountMaximum - pedestrianCountMinimum + 1)];
-        int humanPedestrianCount = random.nextInt(pedestrians.length + 1);
+        int humanPedestrianCount = random.nextInt(pedestrians.length) + 1;
         for (int i = 0; i < pedestrians.length; i++) {
             if (i < humanPedestrianCount) {
                 pedestrians[i] = getRandomHuman();
