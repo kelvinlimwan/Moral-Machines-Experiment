@@ -1,0 +1,32 @@
+======================================
+# User Audit
+======================================
+- % SAVED AFTER 3 RUNS
+average: 1.00
+baby: 1.00
+builder: 1.00
+ferret: 1.00
+pedestrians: 1.00
+senior: 1.00
+you: 1.00
+athletic: 0.88
+female: 0.87
+human: 0.84
+green: 0.83
+male: 0.80
+overweight: 0.80
+adult: 0.75
+ceo: 0.75
+pregnant: 0.72
+criminal: 0.67
+doctor: 0.67
+red: 0.64
+animal: 0.56
+bird: 0.50
+child: 0.50
+dog: 0.50
+pet: 0.40
+cat: 0.00
+passengers: 0.00
+--
+average age: 53.86

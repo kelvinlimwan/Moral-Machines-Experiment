@@ -1,8 +1,13 @@
 package ethicalengine;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class Scenario {
+
+    // constant variable
+    public static final String NEW_LINE = "\n";
 
     // instance variables
     private ArrayList<Persona> passengers;
@@ -13,14 +18,10 @@ public class Scenario {
 	public Scenario(Persona[] passengers, Persona[] pedestrians, boolean isLegalCrossing) {
 
 	    this.passengers = new ArrayList<Persona>();
-        for (Persona passenger : passengers) {
-            this.passengers.add(passenger);
-        }
+        Collections.addAll(this.passengers, passengers);
 
         this.pedestrians = new ArrayList<Persona>();
-        for (Persona pedestrian : pedestrians) {
-            this.pedestrians.add(pedestrian);
-        }
+        this.pedestrians.addAll(Arrays.asList(pedestrians));
 
         this.isLegalCrossing = isLegalCrossing;
     }
@@ -66,40 +67,6 @@ public class Scenario {
 	    return pedestrians.size();
     }
 
-    public int getTotalOfHumanAges() {
-	    int total = 0;
-
-	    for (Persona passenger : passengers) {
-	        if (passenger instanceof Human) {
-	            total += passenger.getAge();
-            }
-        }
-	    for (Persona pedestrian : pedestrians) {
-	        if (pedestrian instanceof Human) {
-	            total += pedestrian.getAge();
-            }
-        }
-
-	    return total;
-    }
-
-    public int getHumanCount() {
-        int count = 0;
-
-        for (Persona passenger : passengers) {
-            if (passenger instanceof Human) {
-                count++;
-            }
-        }
-        for (Persona pedestrian : pedestrians) {
-            if (pedestrian instanceof Human) {
-                count++;
-            }
-        }
-
-        return count;
-    }
-
     // mutator method
     public void setLegalCrossing(boolean isLegalCrossing) {
 	    this.isLegalCrossing = isLegalCrossing;
@@ -108,19 +75,20 @@ public class Scenario {
     @Override
     public String toString() {
 
-	    String output = "======================================\n# Scenario\n" +
-                "======================================\n";
-        output += (isLegalCrossing())? "Legal Crossing: yes\n" : "Legal Crossing: no\n";
+	    String output = "======================================" + NEW_LINE + "# Scenario" +
+                NEW_LINE + "======================================" + NEW_LINE;
+        output += (isLegalCrossing())? "Legal Crossing: yes" + NEW_LINE : "Legal Crossing: no" +
+                NEW_LINE;
 
-        output += "Passengers (" + getPassengerCount() + ")\n";
+        output += "Passengers (" + getPassengerCount() + ")" + NEW_LINE;
         for (int i = 0; i < getPassengerCount(); i++) {
-            output += "- " + passengers.get(i) + "\n";
+            output += "- " + passengers.get(i) + NEW_LINE;
         }
 
         output += "Pedestrians (" + getPedestrianCount() + ")" +
-                (getPedestrianCount() == 0 ? "" : "\n");
+                (getPedestrianCount() == 0 ? "" : NEW_LINE);
         for (int i = 0; i < getPedestrianCount(); i++) {
-            output += "- " + pedestrians.get(i) + (i == getPedestrianCount() - 1 ? "" : "\n");
+            output += "- " + pedestrians.get(i) + (i == getPedestrianCount() - 1 ? "" : NEW_LINE);
         }
 
         return output;

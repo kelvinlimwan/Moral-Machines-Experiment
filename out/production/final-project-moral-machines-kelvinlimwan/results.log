@@ -1,0 +1,35 @@
+======================================
+# Unspecified Audit
+======================================
+- % SAVED AFTER 100 RUNS
+pedestrians: 1.00
+baby: 0.68
+you: 0.66
+dog: 0.61
+homeless: 0.60
+ceo: 0.60
+cat: 0.60
+unemployed: 0.59
+doctor: 0.59
+animal: 0.58
+green: 0.58
+senior: 0.58
+pet: 0.58
+average: 0.57
+female: 0.57
+pregnant: 0.57
+bird: 0.57
+ferret: 0.56
+human: 0.56
+athletic: 0.55
+red: 0.55
+male: 0.54
+overweight: 0.54
+adult: 0.52
+engineer: 0.52
+criminal: 0.52
+child: 0.50
+builder: 0.33
+passengers: 0.00
+--
+average age: 62.77

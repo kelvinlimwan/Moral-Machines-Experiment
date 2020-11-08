@@ -5,10 +5,11 @@ import java.util.Random;
 public class ScenarioGenerator {
 
     // constant variables
-    private static final String[] SPECIES_LIST = {"dog", "cat", "rabbit", "possum", "kangaroo"};
+    private static final String[] SPECIES_LIST = {"dog", "cat", "bird", "ferret"};
     private static final int DEFAULT_MIN_COUNT = 1;
     private static final int DEFAULT_MAX_COUNT = 5;
-    private static final int AGE_CEILING = 120;
+    private static final int HUMAN_AGE_CEILING = 120;
+    private static final int ANIMAL_AGE_CEILING = 20;
     private static final int NUM_OF_GENDERS = 2;
     private static final int NUM_OF_BODY_TYPES = 3;
     private static final int NUM_OF_PROFESSIONS = 7;
@@ -39,19 +40,13 @@ public class ScenarioGenerator {
 
         this.passengerCountMinimum = passengerCountMinimum;
 
-        if (passengerCountMaximum >= passengerCountMinimum) {
-            this.passengerCountMaximum = passengerCountMaximum;
-        } else {
-            this.passengerCountMaximum = passengerCountMinimum; // set max equal to min if max is smaller than min
-        }
+        // set max equal to min if max is smaller than min
+        this.passengerCountMaximum = Math.max(passengerCountMaximum, passengerCountMinimum);
 
         this.pedestrianCountMinimum = pedestrianCountMinimum;
 
-        if (pedestrianCountMaximum >= pedestrianCountMinimum) {
-            this.pedestrianCountMaximum = pedestrianCountMaximum;
-        } else {
-            this.pedestrianCountMaximum = pedestrianCountMinimum; // set max equal to min if max is smaller than min
-        }
+        // set max equal to min if max is smaller than min
+        this.pedestrianCountMaximum = Math.max(pedestrianCountMaximum, pedestrianCountMinimum);
     }
 
     // mutator methods
@@ -59,26 +54,18 @@ public class ScenarioGenerator {
         passengerCountMinimum = min;
     }
     public void setPassengerCountMax(int max) {
-        if (max >= passengerCountMinimum) {
-            passengerCountMaximum = max;
-        } else {
-            passengerCountMaximum = passengerCountMinimum;
-        }
+        passengerCountMaximum = Math.max(max, passengerCountMinimum);
     }
     public void setPedestrianCountMin(int min) {
         pedestrianCountMinimum = min;
     }
     public void setPedestrianCountMax(int max) {
-        if (max >= pedestrianCountMinimum) {
-            pedestrianCountMaximum = max;
-        } else {
-            pedestrianCountMaximum = pedestrianCountMinimum;
-        }
+        pedestrianCountMaximum = Math.max(max, pedestrianCountMinimum);
     }
 
     public Human getRandomHuman() {
 
-        int age = random.nextInt(AGE_CEILING);
+        int age = random.nextInt(HUMAN_AGE_CEILING);
         Human.Profession profession = Human.Profession.values()[random.nextInt(NUM_OF_PROFESSIONS)];
         Persona.Gender gender = Persona.Gender.values()[random.nextInt(NUM_OF_GENDERS)];
         Persona.BodyType bodyType = Persona.BodyType.values()[random.nextInt(NUM_OF_BODY_TYPES)];
@@ -89,7 +76,7 @@ public class ScenarioGenerator {
 
     public Animal getRandomAnimal() {
 
-        int age = random.nextInt(AGE_CEILING);
+        int age = random.nextInt(ANIMAL_AGE_CEILING);
         Persona.Gender gender = Persona.Gender.values()[random.nextInt(NUM_OF_GENDERS)];
         Persona.BodyType bodyType = Persona.BodyType.values()[random.nextInt(NUM_OF_BODY_TYPES)];
         String species = SPECIES_LIST[random.nextInt(SPECIES_LIST.length)];

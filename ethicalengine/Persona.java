@@ -8,7 +8,7 @@ public abstract class Persona {
 
     // constants
     private static final int MIN_AGE = 0;
-    private static final int DEFAULT_AGE = 30;
+    private static final int DEFAULT_AGE = 10;
 
     // enumeration types
     public enum Gender {FEMALE, MALE, UNKNOWN};
