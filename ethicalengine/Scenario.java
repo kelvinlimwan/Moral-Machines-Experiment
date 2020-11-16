@@ -1,94 +1,141 @@
 package ethicalengine;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
+/**
+ * Scenario is a class that represents a scenario that entails an autonomous car whose brakes fail
+ * at a pedestrian crossing and contains the list of passengers, the list of pedestrians and whether
+ * the crossing is legal (green or red).
+ * @author Kelvin Lim Wan
+ */
 public class Scenario {
 
     // constant variable
     public static final String NEW_LINE = "\n";
 
     // instance variables
-    private ArrayList<Persona> passengers;
-    private ArrayList<Persona> pedestrians;
+    private ArrayList<Persona> passengerList;
+    private ArrayList<Persona> pedestrianList;
     private boolean isLegalCrossing;
 
     // constructor
+
+    /**
+     * Creates a scenario with the specified passengers, pedestrians and whether the crossing is
+     * legal.
+     * @param passengers a persona array of the specified passengers.
+     * @param pedestrians a persona array of the specified pedestrians.
+     * @param isLegalCrossing whether the crossing is legal.
+     */
 	public Scenario(Persona[] passengers, Persona[] pedestrians, boolean isLegalCrossing) {
 
-	    this.passengers = new ArrayList<Persona>();
-        Collections.addAll(this.passengers, passengers);
+	    passengerList = new ArrayList<Persona>();
+        Collections.addAll(passengerList, passengers);
 
-        this.pedestrians = new ArrayList<Persona>();
-        this.pedestrians.addAll(Arrays.asList(pedestrians));
+        pedestrianList = new ArrayList<Persona>();
+        Collections.addAll(pedestrianList, pedestrians);
 
         this.isLegalCrossing = isLegalCrossing;
     }
 
     // accessor methods
+
+    /**
+     * Gets whether you are in the car.
+     * @return whether you are in the car.
+     */
     public boolean hasYouInCar() {
-	    for (Persona passenger : passengers) {
+	    for (Persona passenger : passengerList) {
 	        if (passenger instanceof Human && ((Human) passenger).isYou()) {
 	            return true;
             }
         }
 	    return false;
     }
+    /**
+     * Gets whether you are in the lane.
+     * @return whether you are in the lane.
+     */
     public boolean hasYouInLane() {
-        for (Persona pedestrian : pedestrians) {
+        for (Persona pedestrian : pedestrianList) {
             if (pedestrian instanceof Human && ((Human) pedestrian).isYou()) {
                 return true;
             }
         }
         return false;
     }
+    /**
+     * Gets the scenario's passengers.
+     * @return a persona array of the scenario's passengers.
+     */
     public Persona[] getPassengers() {
-	    Persona[] passengersCopy = new Persona[passengers.size()];
-	    for (int i = 0; i < passengers.size(); i++) {
-	        passengersCopy[i] = passengers.get(i);
-        }
-	    return passengersCopy;
+	    Persona[] output = new Persona[passengerList.size()];
+	    output = passengerList.toArray(output);
+	    return output;
     }
+    /**
+     * Gets the scenario's pedestrians.
+     * @return a persona array of the scenario's pedestrians.
+     */
     public Persona[] getPedestrians() {
-        Persona[] pedestriansCopy = new Persona[pedestrians.size()];
-        for (int i = 0; i < pedestrians.size(); i++) {
-            pedestriansCopy[i] = pedestrians.get(i);
-        }
-        return pedestriansCopy;
+        Persona[] output = new Persona[pedestrianList.size()];
+        output = pedestrianList.toArray(output);
+        return output;
     }
+    /**
+     * Gets whether the scenario's crossing is legal.
+     * @return whether the scenario's crossing is legal.
+     */
     public boolean isLegalCrossing() {
 	    return isLegalCrossing;
     }
+    /**
+     * Gets the scenario's number of passengers.
+     * @return a persona array of the scenario's number of passengers.
+     */
     public int getPassengerCount() {
-	    return passengers.size();
+	    return passengerList.size();
     }
+    /**
+     * Gets the scenario's number of pedestrians.
+     * @return a persona array of the scenario's number of pedestrians.
+     */
     public int getPedestrianCount() {
-	    return pedestrians.size();
+	    return pedestrianList.size();
     }
 
     // mutator method
+
+    /**
+     * Sets whether the crossing is legal.
+     * @param isLegalCrossing the 'whether the crossing is legal' to set the scenario's 'whether the
+     *                        crossing is legal' to.
+     */
     public void setLegalCrossing(boolean isLegalCrossing) {
 	    this.isLegalCrossing = isLegalCrossing;
     }
 
+    /**
+     * Returns a string representation of the scenario.
+     * @return the string representation of the scenario.
+     */
     @Override
     public String toString() {
 
 	    String output = "======================================" + NEW_LINE + "# Scenario" +
                 NEW_LINE + "======================================" + NEW_LINE;
-        output += (isLegalCrossing())? "Legal Crossing: yes" + NEW_LINE : "Legal Crossing: no" +
-                NEW_LINE;
+        output += "Legal Crossing: " + (isLegalCrossing ? "yes" : "no") + NEW_LINE;
 
         output += "Passengers (" + getPassengerCount() + ")" + NEW_LINE;
         for (int i = 0; i < getPassengerCount(); i++) {
-            output += "- " + passengers.get(i) + NEW_LINE;
+            output += "- " + passengerList.get(i) + NEW_LINE;
         }
 
         output += "Pedestrians (" + getPedestrianCount() + ")" +
                 (getPedestrianCount() == 0 ? "" : NEW_LINE);
         for (int i = 0; i < getPedestrianCount(); i++) {
-            output += "- " + pedestrians.get(i) + (i == getPedestrianCount() - 1 ? "" : NEW_LINE);
+            output += "- " + pedestrianList.get(i) + (i == getPedestrianCount() - 1 ? "" : NEW_LINE);
         }
 
         return output;

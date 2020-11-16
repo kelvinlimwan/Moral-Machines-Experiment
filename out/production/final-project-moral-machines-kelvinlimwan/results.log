@@ -1,35 +1,846 @@
 ======================================
 # Unspecified Audit
 ======================================
-- % SAVED AFTER 100 RUNS
-pedestrians: 1.00
-baby: 0.68
-you: 0.66
-dog: 0.61
-homeless: 0.60
-ceo: 0.60
-cat: 0.60
-unemployed: 0.59
-doctor: 0.59
-animal: 0.58
+- % SAVED AFTER 2 RUNS
+animal: 1.00
+bird: 1.00
+cat: 1.00
+ceo: 1.00
+child: 1.00
+dog: 1.00
+pet: 1.00
+senior: 1.00
+passengers: 0.80
+athletic: 0.67
+red: 0.67
+male: 0.60
 green: 0.58
-senior: 0.58
-pet: 0.58
-average: 0.57
-female: 0.57
-pregnant: 0.57
-bird: 0.57
-ferret: 0.56
-human: 0.56
-athletic: 0.55
-red: 0.55
-male: 0.54
-overweight: 0.54
-adult: 0.52
-engineer: 0.52
-criminal: 0.52
+average: 0.50
+baby: 0.50
+doctor: 0.50
+human: 0.50
+pregnant: 0.50
+female: 0.40
+adult: 0.34
+criminal: 0.00
+overweight: 0.00
+pedestrians: 0.00
+unemployed: 0.00
+you: 0.00
+--
+average age: 30.40
+======================================
+# Unspecified Audit
+======================================
+- % SAVED AFTER 100 RUNS
+cat: 0.58
+homeless: 0.58
+you: 0.58
+child: 0.57
+male: 0.55
+overweight: 0.55
+baby: 0.55
+doctor: 0.55
+average: 0.54
+animal: 0.54
+green: 0.53
+adult: 0.53
+pet: 0.53
+human: 0.53
+red: 0.53
+ferret: 0.52
+unemployed: 0.52
+dog: 0.51
+female: 0.51
+athletic: 0.51
+ceo: 0.50
+criminal: 0.50
+pregnant: 0.50
+senior: 0.49
+passengers: 0.01
+pedestrians: 0.00
+--
+average age: 39.88
+======================================
+# Unspecified Audit
+======================================
+- % SAVED AFTER 100 RUNS
+cat: 0.58
+homeless: 0.58
+you: 0.58
+child: 0.57
+male: 0.55
+overweight: 0.55
+baby: 0.55
+doctor: 0.55
+average: 0.54
+animal: 0.54
+green: 0.53
+adult: 0.53
+pet: 0.53
+human: 0.53
+red: 0.53
+ferret: 0.52
+unemployed: 0.52
+dog: 0.51
+female: 0.51
+athletic: 0.51
+ceo: 0.50
+criminal: 0.50
+pregnant: 0.50
+senior: 0.49
+passengers: 0.01
+pedestrians: 0.00
+--
+average age: 39.88
+======================================
+# Unspecified Audit
+======================================
+- % SAVED AFTER 100 RUNS
+cat: 0.58
+homeless: 0.58
+you: 0.58
+child: 0.57
+male: 0.55
+overweight: 0.55
+baby: 0.55
+doctor: 0.55
+average: 0.54
+animal: 0.54
+green: 0.53
+adult: 0.53
+pet: 0.53
+human: 0.53
+red: 0.53
+ferret: 0.52
+unemployed: 0.52
+dog: 0.51
+female: 0.51
+athletic: 0.51
+ceo: 0.50
+criminal: 0.50
+pregnant: 0.50
+senior: 0.49
+passengers: 0.01
+pedestrians: 0.00
+--
+average age: 39.88
+======================================
+# Unspecified Audit
+======================================
+- % SAVED AFTER 10 RUNS
+unemployed: 0.73
+dog: 0.67
+ceo: 0.50
 child: 0.50
-builder: 0.33
+pregnant: 0.50
+senior: 0.50
+you: 0.50
+adult: 0.49
+average: 0.49
+overweight: 0.48
+female: 0.47
+green: 0.46
+human: 0.46
+male: 0.46
+doctor: 0.43
+athletic: 0.41
+red: 0.36
+criminal: 0.34
+cat: 0.25
+homeless: 0.25
+animal: 0.24
+baby: 0.15
+passengers: 0.11
+ferret: 0.10
+pet: 0.10
+pedestrians: 0.00
+--
+average age: 42.42
+======================================
+# Unspecified Audit
+======================================
+- % SAVED AFTER 3 RUNS
+cat: 1.00
+dog: 1.00
+homeless: 1.00
+pet: 1.00
+pregnant: 1.00
+unemployed: 1.00
+animal: 0.84
+ceo: 0.75
+passengers: 0.72
+red: 0.69
+athletic: 0.67
+female: 0.67
+overweight: 0.67
+senior: 0.67
+adult: 0.60
+green: 0.60
+human: 0.60
+male: 0.59
+average: 0.56
+child: 0.50
+you: 0.50
+doctor: 0.00
+ferret: 0.00
+pedestrians: 0.00
+--
+average age: 50.78
+======================================
+# Unspecified Audit
+======================================
+- % SAVED AFTER 2 RUNS
+animal: 1.00
+bird: 1.00
+cat: 1.00
+ceo: 1.00
+child: 1.00
+dog: 1.00
+pet: 1.00
+senior: 1.00
+passengers: 0.80
+athletic: 0.67
+red: 0.67
+male: 0.60
+green: 0.58
+average: 0.50
+baby: 0.50
+doctor: 0.50
+human: 0.50
+pregnant: 0.50
+female: 0.40
+adult: 0.34
+criminal: 0.00
+overweight: 0.00
+pedestrians: 0.00
+unemployed: 0.00
+you: 0.00
+--
+average age: 30.40
+======================================
+# Unspecified Audit
+======================================
+- % SAVED AFTER 2 RUNS
+animal: 1.00
+bird: 1.00
+cat: 1.00
+ceo: 1.00
+child: 1.00
+dog: 1.00
+pet: 1.00
+senior: 1.00
+passengers: 0.80
+athletic: 0.67
+red: 0.67
+male: 0.60
+green: 0.58
+average: 0.50
+baby: 0.50
+doctor: 0.50
+human: 0.50
+pregnant: 0.50
+female: 0.40
+adult: 0.34
+criminal: 0.00
+overweight: 0.00
+pedestrians: 0.00
+unemployed: 0.00
+you: 0.00
+--
+average age: 30.40
+======================================
+# Unspecified Audit
+======================================
+- % SAVED AFTER 2 RUNS
+animal: 1.00
+bird: 1.00
+cat: 1.00
+ceo: 1.00
+child: 1.00
+doctor: 1.00
+dog: 1.00
+passengers: 1.00
+pet: 1.00
+senior: 1.00
+athletic: 0.67
+green: 0.67
+red: 0.67
+average: 0.60
+male: 0.60
+human: 0.56
+baby: 0.50
+female: 0.50
+pregnant: 0.50
+adult: 0.40
+criminal: 0.00
+overweight: 0.00
+pedestrians: 0.00
+unemployed: 0.00
+--
+average age: 30.40
+======================================
+# Unspecified Audit
+======================================
+- % SAVED AFTER 2 RUNS
+animal: 1.00
+bird: 1.00
+cat: 1.00
+ceo: 1.00
+child: 1.00
+dog: 1.00
+pet: 1.00
+senior: 1.00
+athletic: 0.67
+passengers: 0.60
+red: 0.60
+green: 0.58
+doctor: 0.50
+male: 0.50
+pregnant: 0.50
+human: 0.45
+average: 0.40
+female: 0.40
+adult: 0.34
+baby: 0.00
+criminal: 0.00
+overweight: 0.00
+pedestrians: 0.00
+unemployed: 0.00
+you: 0.00
+--
+average age: 37.75
+======================================
+# Unspecified Audit
+======================================
+- % SAVED AFTER 1 RUNS
+passengers: 1.60
+animal: 1.00
+bird: 1.00
+cat: 1.00
+ceo: 1.00
+child: 1.00
+dog: 1.00
+pet: 1.00
+senior: 1.00
+athletic: 0.67
+red: 0.62
+male: 0.60
+average: 0.50
+baby: 0.50
+doctor: 0.50
+human: 0.50
+pregnant: 0.50
+female: 0.40
+adult: 0.34
+criminal: 0.00
+overweight: 0.00
+pedestrians: 0.00
+unemployed: 0.00
+you: 0.00
+--
+average age: 30.40
+======================================
+# Unspecified Audit
+======================================
+- % SAVED AFTER 2 RUNS
+criminal: 1.00
+overweight: 1.00
+passengers: 1.00
+unemployed: 1.00
+you: 1.00
+adult: 0.67
+female: 0.60
+average: 0.50
+baby: 0.50
+doctor: 0.50
+human: 0.50
+pregnant: 0.50
+green: 0.43
+male: 0.40
+athletic: 0.34
+red: 0.34
+animal: 0.00
+bird: 0.00
+cat: 0.00
+ceo: 0.00
+child: 0.00
+dog: 0.00
+pedestrians: 0.00
+pet: 0.00
+senior: 0.00
+--
+average age: 27.60
+======================================
+# Unspecified Audit
+======================================
+- % SAVED AFTER 2 RUNS
+criminal: 1.00
+overweight: 1.00
+passengers: 1.00
+unemployed: 1.00
+you: 1.00
+adult: 0.67
+female: 0.60
+average: 0.50
+baby: 0.50
+doctor: 0.50
+human: 0.50
+pregnant: 0.50
+green: 0.43
+male: 0.40
+athletic: 0.34
+red: 0.34
+animal: 0.00
+bird: 0.00
+cat: 0.00
+ceo: 0.00
+child: 0.00
+dog: 0.00
+pedestrians: 0.00
+pet: 0.00
+senior: 0.00
+--
+average age: 27.60
+======================================
+# Unspecified Audit
+======================================
+- % SAVED AFTER 2 RUNS
+animal: 1.00
+bird: 1.00
+cat: 1.00
+ceo: 1.00
+child: 1.00
+dog: 1.00
+pet: 1.00
+senior: 1.00
+passengers: 0.80
+athletic: 0.67
+red: 0.67
+male: 0.60
+green: 0.58
+average: 0.50
+baby: 0.50
+doctor: 0.50
+human: 0.50
+pregnant: 0.50
+female: 0.40
+adult: 0.34
+criminal: 0.00
+overweight: 0.00
+pedestrians: 0.00
+unemployed: 0.00
+you: 0.00
+--
+average age: 30.40
+======================================
+# Unspecified Audit
+======================================
+- % SAVED AFTER 2 RUNS
+animal: 1.00
+bird: 1.00
+cat: 1.00
+ceo: 1.00
+child: 1.00
+dog: 1.00
+pet: 1.00
+senior: 1.00
+passengers: 0.80
+athletic: 0.67
+red: 0.67
+male: 0.60
+green: 0.58
+average: 0.50
+baby: 0.50
+doctor: 0.50
+human: 0.50
+pregnant: 0.50
+female: 0.40
+adult: 0.34
+criminal: 0.00
+overweight: 0.00
+pedestrians: 0.00
+unemployed: 0.00
+you: 0.00
+--
+average age: 30.40
+======================================
+# Unspecified Audit
+======================================
+- % SAVED AFTER 2 RUNS
+animal: 1.00
+bird: 1.00
+cat: 1.00
+ceo: 1.00
+child: 1.00
+dog: 1.00
+pet: 1.00
+senior: 1.00
+passengers: 0.80
+athletic: 0.67
+red: 0.67
+male: 0.60
+green: 0.58
+average: 0.50
+baby: 0.50
+doctor: 0.50
+human: 0.50
+pregnant: 0.50
+female: 0.40
+adult: 0.34
+criminal: 0.00
+overweight: 0.00
+pedestrians: 0.00
+unemployed: 0.00
+you: 0.00
+--
+average age: 30.40
+======================================
+# Unspecified Audit
+======================================
+- % SAVED AFTER 3 RUNS
+cat: 1.00
+dog: 1.00
+homeless: 1.00
+pet: 1.00
+pregnant: 1.00
+unemployed: 1.00
+animal: 0.84
+ceo: 0.75
+passengers: 0.72
+red: 0.69
+athletic: 0.67
+female: 0.67
+overweight: 0.67
+senior: 0.67
+adult: 0.60
+green: 0.60
+human: 0.60
+male: 0.59
+average: 0.56
+child: 0.50
+you: 0.50
+doctor: 0.00
+ferret: 0.00
+pedestrians: 0.00
+--
+average age: 50.78
+======================================
+# Unspecified Audit
+======================================
+- % SAVED AFTER 10 RUNS
+unemployed: 0.73
+dog: 0.67
+ceo: 0.50
+child: 0.50
+pregnant: 0.50
+senior: 0.50
+you: 0.50
+adult: 0.49
+average: 0.49
+overweight: 0.48
+female: 0.47
+green: 0.46
+human: 0.46
+male: 0.46
+doctor: 0.43
+athletic: 0.41
+red: 0.36
+criminal: 0.34
+cat: 0.25
+homeless: 0.25
+animal: 0.24
+baby: 0.15
+passengers: 0.11
+ferret: 0.10
+pet: 0.10
+pedestrians: 0.00
+--
+average age: 42.42
+======================================
+# Unspecified Audit
+======================================
+- % SAVED AFTER 100 RUNS
+cat: 0.58
+homeless: 0.58
+you: 0.58
+child: 0.57
+male: 0.55
+overweight: 0.55
+baby: 0.55
+doctor: 0.55
+average: 0.54
+animal: 0.54
+green: 0.53
+adult: 0.53
+pet: 0.53
+human: 0.53
+red: 0.53
+ferret: 0.52
+unemployed: 0.52
+dog: 0.51
+female: 0.51
+athletic: 0.51
+ceo: 0.50
+criminal: 0.50
+pregnant: 0.50
+senior: 0.49
+passengers: 0.01
+pedestrians: 0.00
+--
+average age: 39.88
+======================================
+# Unspecified Audit
+======================================
+- % SAVED AFTER 2 RUNS
+animal: 1.00
+bird: 1.00
+cat: 1.00
+ceo: 1.00
+child: 1.00
+dog: 1.00
+pet: 1.00
+senior: 1.00
+passengers: 0.80
+athletic: 0.67
+red: 0.67
+male: 0.60
+green: 0.58
+average: 0.50
+baby: 0.50
+doctor: 0.50
+human: 0.50
+pregnant: 0.50
+female: 0.40
+adult: 0.34
+criminal: 0.00
+overweight: 0.00
+pedestrians: 0.00
+unemployed: 0.00
+you: 0.00
+--
+average age: 30.40
+======================================
+# Unspecified Audit
+======================================
+- % SAVED AFTER 2 RUNS
+criminal: 1.00
+overweight: 1.00
+passengers: 1.00
+unemployed: 1.00
+you: 1.00
+adult: 0.67
+female: 0.60
+average: 0.50
+baby: 0.50
+doctor: 0.50
+human: 0.50
+pregnant: 0.50
+green: 0.43
+male: 0.40
+athletic: 0.34
+red: 0.34
+animal: 0.00
+bird: 0.00
+cat: 0.00
+ceo: 0.00
+child: 0.00
+dog: 0.00
+pedestrians: 0.00
+pet: 0.00
+senior: 0.00
+--
+average age: 27.60
+======================================
+# Unspecified Audit
+======================================
+- % SAVED AFTER 100 RUNS
+you: 0.56
+possum: 0.49
+child: 0.48
+kangaroo: 0.47
+female: 0.46
+ceo: 0.46
+red: 0.46
+bird: 0.45
+criminal: 0.45
+engineer: 0.45
+animal: 0.45
+pregnant: 0.45
+adult: 0.45
+overweight: 0.44
+pet: 0.43
+senior: 0.43
+dog: 0.42
+athletic: 0.42
+human: 0.42
+homeless: 0.42
+cat: 0.42
+green: 0.42
+average: 0.40
+doctor: 0.40
+male: 0.38
+builder: 0.37
+unemployed: 0.32
+baby: 0.29
+passengers: 0.16
+pedestrians: 0.00
+--
+average age: 58.45
+======================================
+# Unspecified Audit
+======================================
+- % SAVED AFTER 2 RUNS
+criminal: 1.00
+overweight: 1.00
+passengers: 1.00
+unemployed: 1.00
+you: 1.00
+adult: 0.67
+female: 0.60
+average: 0.50
+baby: 0.50
+doctor: 0.50
+human: 0.50
+pregnant: 0.50
+green: 0.43
+male: 0.40
+athletic: 0.34
+red: 0.34
+animal: 0.00
+bird: 0.00
+cat: 0.00
+ceo: 0.00
+child: 0.00
+dog: 0.00
+pedestrians: 0.00
+pet: 0.00
+senior: 0.00
+--
+average age: 27.60
+======================================
+# Unspecified Audit
+======================================
+- % SAVED AFTER 2 RUNS
+animal: 1.00
+bird: 1.00
+cat: 1.00
+ceo: 1.00
+child: 1.00
+dog: 1.00
+pet: 1.00
+senior: 1.00
+pedestrians: 1.00
+athletic: 0.67
+red: 0.67
+male: 0.60
+none: 0.60
+green: 0.58
+: 0.56
+baby: 0.50
+pregnant: 0.50
+average: 0.50
+doctor: 0.50
+human: 0.50
+female: 0.40
+adult: 0.34
+criminal: 0.00
+overweight: 0.00
+unemployed: 0.00
+you: 0.00
 passengers: 0.00
 --
-average age: 62.77
+average age: NaN
+======================================
+# Unspecified Audit
+======================================
+- % SAVED AFTER 2 RUNS
+animal: 1.00
+bird: 1.00
+cat: 1.00
+ceo: 1.00
+child: 1.00
+dog: 1.00
+pet: 1.00
+senior: 1.00
+pedestrians: 1.00
+athletic: 0.67
+red: 0.67
+male: 0.60
+green: 0.58
+baby: 0.50
+pregnant: 0.50
+average: 0.50
+doctor: 0.50
+human: 0.50
+female: 0.40
+adult: 0.34
+criminal: 0.00
+overweight: 0.00
+unemployed: 0.00
+you: 0.00
+passengers: 0.00
+--
+average age: NaN
+======================================
+# Unspecified Audit
+======================================
+- % SAVED AFTER 2 RUNS
+animal: 1.00
+bird: 1.00
+cat: 1.00
+ceo: 1.00
+child: 1.00
+dog: 1.00
+pet: 1.00
+senior: 1.00
+pedestrians: 1.00
+athletic: 0.67
+red: 0.67
+male: 0.60
+green: 0.58
+baby: 0.50
+pregnant: 0.50
+average: 0.50
+doctor: 0.50
+human: 0.50
+female: 0.40
+adult: 0.34
+criminal: 0.00
+overweight: 0.00
+unemployed: 0.00
+you: 0.00
+passengers: 0.00
+--
+average age: 30.40
+======================================
+# Unspecified Audit
+======================================
+- % SAVED AFTER 2 RUNS
+animal: 1.00
+bird: 1.00
+cat: 1.00
+ceo: 1.00
+child: 1.00
+dog: 1.00
+pet: 1.00
+senior: 1.00
+pedestrians: 1.00
+athletic: 0.67
+red: 0.67
+male: 0.60
+green: 0.58
+baby: 0.50
+pregnant: 0.50
+average: 0.50
+doctor: 0.50
+human: 0.50
+female: 0.40
+adult: 0.34
+criminal: 0.00
+overweight: 0.00
+unemployed: 0.00
+you: 0.00
+passengers: 0.00
+--
+average age: 30.40

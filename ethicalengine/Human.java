@@ -1,11 +1,11 @@
 package ethicalengine;
 
+/**
+ * Human is a derived class from Persona which represents a human by his/her profession, pregnancy
+ * status and whether he/she is 'you' (on top of the characteristics in Persona).
+ * @author Kelvin Lim Wan
+ */
 public class Human extends Persona {
-
-    /*
-    class invariant: if the human's gender is not female, the human cannot be pregnant AND
-    only humans who belong to the age category ADULT have a profession
-     */
 
     // constant variables
     private static final int MAX_AGE_BABY = 4;
@@ -13,9 +13,9 @@ public class Human extends Persona {
     private static final int MAX_AGE_ADULT = 68;
     private static final int NUM_OF_CHARACTERISTICS = 7;
 
-    // enumeration types
+    // enumerations
     public enum AgeCategory {BABY, CHILD, ADULT, SENIOR};
-    public enum Profession {DOCTOR, CEO, CRIMINAL, HOMELESS, UNEMPLOYED, ENGINEER, BUILDER, NONE}
+    public enum Profession {DOCTOR, CEO, CRIMINAL, HOMELESS, UNEMPLOYED, ENGINEER, BUILDER, NONE};
 
     // instance variables
     private Profession profession;
@@ -23,17 +23,36 @@ public class Human extends Persona {
     private boolean isYou;
 
     // constructors
+    /**
+     * Creates a human with a default age, gender, body type, profession, pregnancy status and
+     * whether he/she is you.
+     */
     public Human() {
         profession = Profession.NONE;
         isPregnant = false;
         isYou = false;
     }
+    /**
+     * Creates a human with the specified age, gender and body type and a default profession,
+     * pregnancy status and whether he/she is you.
+     * @param age the specified age.
+     * @param gender the specified gender.
+     * @param bodyType the specified body type.
+     */
     public Human(int age, Gender gender, BodyType bodyType) {
         super(age, gender, bodyType);
         profession = Profession.NONE;
         isPregnant = false;
         isYou = false;
     }
+    /**
+     * Creates a human with the specified age, gender, body type, profession, pregnancy status and a
+     * default whether he/she is you.
+     * @param age the specified age.
+     * @param gender the specified gender.
+     * @param bodyType the specified body type.
+     * @param isPregnant the specified pregnancy status.
+     */
     public Human(int age, Profession profession, Gender gender, BodyType bodyType,
                  boolean isPregnant) {
 
@@ -45,7 +64,7 @@ public class Human extends Persona {
             this.profession = Profession.NONE;
         }
 
-        if (getGender() == Gender.FEMALE) {
+        if (gender == Gender.FEMALE) {
             this.isPregnant = isPregnant;
         } else {
             this.isPregnant = false;
@@ -53,6 +72,25 @@ public class Human extends Persona {
 
         isYou = false;
     }
+    /**
+     * Creates a human with the specified age, gender, body type, profession, pregnancy status and
+     * whether he/she is you.
+     * @param age the specified age.
+     * @param gender the specified gender.
+     * @param bodyType the specified body type.
+     * @param isPregnant the specified pregnancy status.
+     * @param isYou whether he/she is 'you'.
+     */
+    public Human(int age, Profession profession, Gender gender, BodyType bodyType,
+                 boolean isPregnant, boolean isYou) {
+        this(age, profession, gender, bodyType, isPregnant);
+        this.isYou = isYou;
+    }
+    /**
+     * Creates a human with the same age, gender, body type, profession, pregnancy status and
+     * whether he/she is you as another human.
+     * @param otherHuman the other human.
+     */
     public Human(Human otherHuman) {
         this(otherHuman.getAge(), otherHuman.getProfession(), otherHuman.getGender(),
                 otherHuman.getBodyType(), otherHuman.isPregnant());
@@ -60,6 +98,11 @@ public class Human extends Persona {
     }
 
     // accessor methods
+
+    /**
+     * Gets the human's age category.
+     * @return the human's age category.
+     */
     public AgeCategory getAgeCategory() {
 
         // invariant in Persona class ensures age >= 0
@@ -72,22 +115,40 @@ public class Human extends Persona {
         }
         return AgeCategory.SENIOR;
     }
+    /**
+     * Gets the human's profession.
+     * @return the human's profession.
+     */
     public Profession getProfession() {
         if (getAgeCategory() != AgeCategory.ADULT) {
             return Profession.NONE;
         }
         return profession;
     }
+    /**
+     * Gets the human's pregnancy status.
+     * @return the human's pregnancy status.
+     */
     public boolean isPregnant() {
         if (getGender() != Gender.FEMALE) {
             return false;
         }
         return isPregnant;
     }
+    /**
+     * Gets whether the human is you.
+     * @return whether the human is you.
+     */
     public boolean isYou() {
         return isYou;
     }
 
+    /**
+     * Gets the human's characteristics: persona type, age category, gender, body type, profession,
+     * pregnancy status and whether he/she is you.
+     * @return a string array of the human's characteristics.
+     */
+    @Override
     public String[] getCharacteristics() {
 
         String[] characteristics = new String[NUM_OF_CHARACTERISTICS];
@@ -103,21 +164,33 @@ public class Human extends Persona {
     }
 
     // mutator methods
+    /**
+     * Sets the human's pregnancy status.
+     * @param pregnant the pregnancy status to set the human's pregnancy status to.
+     */
     public void setPregnant(boolean pregnant) {
         if (getGender() == Gender.FEMALE) {
             isPregnant = pregnant;
         }
     }
+    /**
+     * Sets whether the human is you.
+     * @param isYou the 'whether the human is you' to set the human's 'whether he/she is you' to.
+     */
     public void setAsYou(boolean isYou) {
         this.isYou = isYou;
     }
 
+    /**
+     * Returns a string representation of the human.
+     * @return the string representation of the human.
+     */
     @Override
     public String toString() {
-        return (isYou() ? "you " : "") + getBodyType().toString().toLowerCase() + " " +
+        return (isYou ? "you " : "") + getBodyType().toString().toLowerCase() + " " +
                 getAgeCategory().toString().toLowerCase() + " " +
                 (getAgeCategory() == AgeCategory.ADULT ? profession.toString().toLowerCase() +
-                        " " : "") + getGender().toString().toLowerCase() + (isPregnant() ?
+                        " " : "") + getGender().toString().toLowerCase() + (isPregnant ?
                 " pregnant" : "");
     }
 }
