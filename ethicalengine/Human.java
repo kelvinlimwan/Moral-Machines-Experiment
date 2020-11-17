@@ -22,7 +22,6 @@ public class Human extends Persona {
     private boolean isPregnant;
     private boolean isYou;
 
-    // constructors
     /**
      * Creates a human with a default age, gender, body type, profession, pregnancy status and
      * whether he/she is you.
@@ -32,6 +31,7 @@ public class Human extends Persona {
         isPregnant = false;
         isYou = false;
     }
+
     /**
      * Creates a human with the specified age, gender and body type and a default profession,
      * pregnancy status and whether he/she is you.
@@ -41,10 +41,12 @@ public class Human extends Persona {
      */
     public Human(int age, Gender gender, BodyType bodyType) {
         super(age, gender, bodyType);
+
         profession = Profession.NONE;
         isPregnant = false;
         isYou = false;
     }
+
     /**
      * Creates a human with the specified age, gender, body type, profession, pregnancy status and a
      * default whether he/she is you.
@@ -55,7 +57,6 @@ public class Human extends Persona {
      */
     public Human(int age, Profession profession, Gender gender, BodyType bodyType,
                  boolean isPregnant) {
-
         super(age, gender, bodyType);
 
         if (getAgeCategory() == AgeCategory.ADULT) {
@@ -72,6 +73,7 @@ public class Human extends Persona {
 
         isYou = false;
     }
+
     /**
      * Creates a human with the specified age, gender, body type, profession, pregnancy status and
      * whether he/she is you.
@@ -86,6 +88,7 @@ public class Human extends Persona {
         this(age, profession, gender, bodyType, isPregnant);
         this.isYou = isYou;
     }
+
     /**
      * Creates a human with the same age, gender, body type, profession, pregnancy status and
      * whether he/she is you as another human.
@@ -97,14 +100,11 @@ public class Human extends Persona {
         isYou = otherHuman.isYou();
     }
 
-    // accessor methods
-
     /**
      * Gets the human's age category.
      * @return the human's age category.
      */
     public AgeCategory getAgeCategory() {
-
         // invariant in Persona class ensures age >= 0
         if (getAge() <= MAX_AGE_BABY) {
             return AgeCategory.BABY;
@@ -115,6 +115,7 @@ public class Human extends Persona {
         }
         return AgeCategory.SENIOR;
     }
+
     /**
      * Gets the human's profession.
      * @return the human's profession.
@@ -125,6 +126,7 @@ public class Human extends Persona {
         }
         return profession;
     }
+
     /**
      * Gets the human's pregnancy status.
      * @return the human's pregnancy status.
@@ -135,6 +137,7 @@ public class Human extends Persona {
         }
         return isPregnant;
     }
+
     /**
      * Gets whether the human is you.
      * @return whether the human is you.
@@ -150,7 +153,6 @@ public class Human extends Persona {
      */
     @Override
     public String[] getCharacteristics() {
-
         String[] characteristics = new String[NUM_OF_CHARACTERISTICS];
         characteristics[0] = "human";
         characteristics[1] = getAgeCategory().toString().toLowerCase();
@@ -163,7 +165,6 @@ public class Human extends Persona {
         return characteristics;
     }
 
-    // mutator methods
     /**
      * Sets the human's pregnancy status.
      * @param pregnant the pregnancy status to set the human's pregnancy status to.

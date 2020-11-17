@@ -21,22 +21,20 @@ public class EthicalEngine {
 
         Scanner keyboard = new Scanner(System.in);
         EthicalEngine engine = new EthicalEngine();
-        boolean exit = false;   // to exit program
 
         // get flags
         for (int i = 0; i < args.length; i++) {
 
-            // print help when flag is last in args or next arg is not a csv filepath
             switch (args[i]) {
                 case "-h":
                 case "--help":
                     printHelp();
-                    exit = true;
+                    return; // naturally terminate the program
                 case "-c":
                 case "--config":
                     if (i == args.length - 1 || !args[i + 1].endsWith(".csv")) {
                         printHelp();
-                        exit = true;
+                        return; // naturally terminate the program
                     }
                     engine.setConfigurationMode(true);
                     engine.setConfigFilepath(args[i + 1]);
@@ -46,7 +44,7 @@ public class EthicalEngine {
                 case "--results":
                     if (i == args.length - 1 || !args[i + 1].endsWith(".log")) {
                         printHelp();
-                        exit = true;
+                        return; // naturally terminate the program
                     }
                     engine.setResultsFilepath(args[i + 1]);
                     i++;    // skip next arg
@@ -58,51 +56,43 @@ public class EthicalEngine {
             }
         }
 
-        if (exit) {
-            return;
-        }
-
-        if (engine.getInteractiveMode()) {
-            engine.welcomeUser(keyboard);
-        }
-
         try {
-            // configuration
             if (engine.getConfigurationMode()) {
-
+                // in configuration mode
                 try {
                     engine.importScenarios();   // read scenarios from csv file
                 } catch (FileNotFoundException e) {
                     System.err.println("ERROR: could not find config file.");
-                    return;
+                    return; // naturally terminate the program
                 } catch (IOException e) {
                     System.err.println("Could not read from file");
-                    return;
+                    return; // naturally terminate the program
                 }
 
                 if (engine.getInteractiveMode()) {
-
+                    // in interactive mode
+                    engine.welcomeUser(keyboard);
                     engine.interactInConfig(keyboard);
-
                 } else {
-
+                    // not in interative mode
                     engine.printConfigScenarios();
                 }
 
             } else {
-
+                // not in configuration mode
                 if (engine.getInteractiveMode()) {
-
+                    // in interactive mode
+                    engine.welcomeUser(keyboard);
                     engine.interactAndGenerate(keyboard);
-
                 } else {
+                    // not in interactive mode
                     engine.generateScenarios();
                 }
             }
         } catch (FileNotFoundException e) {
             System.err.println("ERROR: could not print results. Target directory does not exist.");
         } catch (UserExitException e) {
-
+            // program naturally terminates
         }
 
     }
@@ -111,28 +101,30 @@ public class EthicalEngine {
     private static final String TAB = "\t";
     private static final String SPLIT_BY = ",";
     private static final String WELCOME_FILEPATH = "welcome.ascii";
+    private static final String DEFAULT_PERSONA_TYPE = "human";
+    private static final String DEFAULT_ROLE = "passenger";
     private static final String DEFAULT_SPECIES = "dog";
     private static final String USER_AUDIT_TYPE = "User";
+    private static final String ALGORITHM_AUDIT_TYPE = "Algorithm";
     private static final String USER_FILEPATH = "user.log";
+    private static final int INITIAL_LINE_COUNT = 2;
     private static final int MAX_NUM_OF_PASSENGERS = 7;
     private static final int MAX_NUM_OF_PEDESTRIANS = 10;
     private static final int NUM_OF_COLUMNS = 10;
-    private static final int NUM_OF_GENERATED_SCENARIOS = 100;
-    private static final int NUM_OF_SCENARIOS_TO_SHOW = 3;
+    private static final int NUM_OF_GENERATED_SCENARIOS = 1000;
+    private static final int NUM_OF_SCENARIOS_BEFORE_STATISTIC = 3;
     private static final int DEFAULT_AGE = 15;
     private static final int LIGHT_INDEX = 9;
     private static final int HIGH_SCORE = 5;
     private static final int LOW_SCORE = 2;
     private static final int FACTOR = 2;
-    private static final String[] CHARACTERISTICS = {"adult", "animal", "athletic", "average",
-            "baby", "bird", "builder", "cat", "ceo", "child", "criminal", "doctor", "dog", "engineer",
-            "female", "ferret", "homeless", "human", "male", "overweight", "pet", "pregnant",
-            "senior", "unemployed", "you"};
-    private static final double[] CHARACTERISTICS_SCORES = {0.5, 0, 0.5, 0.5, 2, 0, 0.5, 0.5, 0.5, 2,
-            0, 1, 0, 0.5, 0, 0, 0.5, 1, 0, 0, 3, 2, 0, 0.5, 0};
-    //TODO: ADJUST SCORES
+    private static final String[] CHARACTERISTICS = {"adult", "athletic", "average", "baby",
+            "builder", "ceo", "child", "doctor", "engineer", "homeless", "human", "pet", "pregnant",
+            "unemployed"};
+    private static final double[] CHARACTERISTICS_SCORES = {0.5, 0.5, 0.5, 2, 0.5, 1, 2, 1.5, 0.5,
+            0.5, 0.5, 2, 2, 0.5};
 
-    // enumerated variable
+    // enumeration
     public enum Decision {PASSENGERS, PEDESTRIANS};
 
     // instance variables
@@ -156,8 +148,6 @@ public class EthicalEngine {
         scenarioList = new ArrayList<Scenario>();
     }
 
-    // accessor methods
-
     /**
      * Gets whether the ethical engine is in configuration mode.
      * @return whether the ethical engine is in configuration mode.
@@ -165,6 +155,7 @@ public class EthicalEngine {
     public boolean getConfigurationMode() {
         return configurationMode;
     }
+
     /**
      * Gets whether the ethical engine is in interactive mode.
      * @return whether the ethical engine is in interactive mode.
@@ -172,8 +163,6 @@ public class EthicalEngine {
     public boolean getInteractiveMode() {
         return interactiveMode;
     }
-
-    // mutator methods
 
     /**
      * Sets whether the ethical engine is in configuration mode.
@@ -184,6 +173,7 @@ public class EthicalEngine {
     public void setConfigurationMode(boolean configurationMode) {
         this.configurationMode = configurationMode;
     }
+
     /**
      * Sets whether the ethical engine is in interactive mode.
      * @param interactiveMode the 'whether the ethical engine is in interactive mode' to set the
@@ -203,6 +193,7 @@ public class EthicalEngine {
             this.configFilepath = configFilepath;
         }
     }
+
     /**
      * Sets the ethical engine's results file path.
      * @param resultsFilepath the results file path to set the ethical engine's results file path
@@ -213,36 +204,40 @@ public class EthicalEngine {
     }
 
     /**
-     * Decides whether to save the passengers or the pedestrians in a pre-defined scenario.
+     * Decides whether to save the passengers or the pedestrians in a pre-defined scenario using a
+     * score-based system.
      * @param scenario the pre-defined scenario.
      * @return whether to save the passengers or the pedestrians.
      */
     public static Decision decide(Scenario scenario) {
 
-        // scenario characteristics used: passenger count, pedestrian count, legality of crossing,
-        // whether you in car, whether you in lane
-
         double passengerScore = 0;
         double pedestrianScore = 0;
 
+        // consider the personas counts
         if (scenario.getPassengerCount() >= scenario.getPedestrianCount()) {
-            passengerScore += FACTOR * (scenario.getPassengerCount() - scenario.getPedestrianCount());
+            passengerScore += FACTOR * (scenario.getPassengerCount() -
+                    scenario.getPedestrianCount());
         } else {
-            pedestrianScore += FACTOR * (scenario.getPedestrianCount() - scenario.getPassengerCount());
+            pedestrianScore += FACTOR * (scenario.getPedestrianCount() -
+                    scenario.getPassengerCount());
         }
 
+        // consider the crossing legality
         if (scenario.isLegalCrossing()) {
             pedestrianScore += HIGH_SCORE;
         } else {
             passengerScore += HIGH_SCORE;
         }
 
+        // consider where you are
         if (scenario.hasYouInCar()) {
             passengerScore += LOW_SCORE;
         } else if (scenario.hasYouInLane()) {
             pedestrianScore += LOW_SCORE;
         }
 
+        // consider each characteristic of each passenger
         for (Persona passenger : scenario.getPassengers()) {
             for (int i = 0; i < passenger.getCharacteristics().length; i++) {
                 int index = Arrays.binarySearch(CHARACTERISTICS, passenger.getCharacteristics()[i]);
@@ -251,16 +246,19 @@ public class EthicalEngine {
                 }
             }
         }
+
+        // consider each characteristic of each pedestrian
         for (Persona pedestrian : scenario.getPedestrians()) {
             for (int i = 0; i < pedestrian.getCharacteristics().length; i++) {
                 int index = Arrays.binarySearch(CHARACTERISTICS,
                         pedestrian.getCharacteristics()[i]);
                 if (index >= 0) {
-                    passengerScore += CHARACTERISTICS_SCORES[index];
+                    pedestrianScore += CHARACTERISTICS_SCORES[index];
                 }
             }
         }
 
+        // return the group with the higher score
         if (passengerScore >= pedestrianScore) {
             return Decision.PASSENGERS;
         } else {
@@ -279,6 +277,7 @@ public class EthicalEngine {
         try {
             BufferedReader inputStream = new BufferedReader(new FileReader(WELCOME_FILEPATH));
 
+            // print line by line
             String line = inputStream.readLine();
             while (line != null) {
                 System.out.println(line);
@@ -293,7 +292,6 @@ public class EthicalEngine {
 
         // ask for consent
         System.out.println("Do you consent to have your decisions saved to a file? (yes/no)");
-
         while (true) {
             try {
                 String answer = keyboard.next();
@@ -306,9 +304,7 @@ public class EthicalEngine {
                     throw new InvalidInputException("Invalid response. Do you consent to have " +
                             "your decisions saved to a file? (yes/no)");
                 }
-
                 break;
-
             } catch (InvalidInputException e) {
                 System.out.println(e.getMessage());
             }
@@ -323,36 +319,35 @@ public class EthicalEngine {
     public void importScenarios() throws FileNotFoundException, IOException {
 
         BufferedReader inputStream = new BufferedReader(new FileReader(configFilepath));
-
         inputStream.readLine(); // discard header row
 
         boolean isLegalCrossing = false;
         ArrayList<Persona> passengerList = new ArrayList<Persona>();
         ArrayList<Persona> pedestrianList = new ArrayList<Persona>();
 
-        int row = 2;
+        int lineCount = INITIAL_LINE_COUNT;
         String line = inputStream.readLine();
+        // read line by line
         while (line != null) {
 
             String[] values = line.split(SPLIT_BY, -1);
 
-            // catch if number of values is not equal to 10
+            // throw exception if number of values in line is not equal to 10
             try {
                 if (values.length != NUM_OF_COLUMNS) {
                     throw new InvalidDataFormatException("WARNING: invalid data format in " +
-                            "config file in line " + row);
+                            "config file in line " + lineCount);
                 }
             } catch (InvalidDataFormatException e) {
-                //TODO : discard that line for entire scenario? then what happens to the line count?
                 System.err.println(e.getMessage());
                 line = inputStream.readLine();
-                row++;
+                lineCount++;
                 continue;
             }
 
+            //pre-assign variables to their default values in case exceptions are thrown
             Persona persona = new Human();
-            //pre-assigned to their default values in case exception is thrown
-            String personaType = "human";
+            String personaType = DEFAULT_PERSONA_TYPE;
             Persona.Gender gender = Persona.Gender.UNKNOWN;
             int age = DEFAULT_AGE;
             Persona.BodyType bodyType = Persona.BodyType.UNSPECIFIED;
@@ -361,12 +356,11 @@ public class EthicalEngine {
             boolean isYou = false;
             String species = DEFAULT_SPECIES;
             boolean isPet = false;
-            String role = "passenger";
+            String role = DEFAULT_ROLE;
 
             if (values[0].startsWith("scenario")) {
-
-                if (row > 2) {
-                    // create new scenario and add to scenarioList
+                // when it is not the first scenario line, create scenario and add to scenario list
+                if (lineCount > INITIAL_LINE_COUNT) {
                     Persona[] passengers = new Persona[passengerList.size()];
                     passengers = passengerList.toArray(passengers);
                     Persona[] pedestrians = new Persona[pedestrianList.size()];
@@ -374,10 +368,12 @@ public class EthicalEngine {
 
                     scenarioList.add(new Scenario(passengers, pedestrians, isLegalCrossing));
 
+                    // reset to empty arrays
                     passengerList = new ArrayList<Persona>();
                     pedestrianList = new ArrayList<Persona>();
                 }
 
+                // get crossing legality for next scenario
                 if (values[0].substring(LIGHT_INDEX).equals("green")) {
                     isLegalCrossing = true;
                 } else if (values[0].substring(LIGHT_INDEX).equals("red")) {
@@ -385,28 +381,27 @@ public class EthicalEngine {
                 }
 
                 line = inputStream.readLine();
-                row++;
+                lineCount++;
                 continue;
 
             } else {
 
-                // human or animal ?
+                // persona type column
                 try {
                     if (!(values[0].equalsIgnoreCase("human") ||
                             values[0].equalsIgnoreCase("animal"))) {
-                        throw new InvalidCharacteristicException("WARNING: invalid " +
-                                "characteristic in config file in line " + row);
+                        throw new InvalidCharacteristicException("WARNING: invalid characteristic" +
+                                " in config file in line " + lineCount);
+                    } else {
+                        personaType = values[0].toLowerCase();
                     }
-                    personaType = values[0].toLowerCase();
                 } catch (InvalidCharacteristicException e) {
                     System.err.println(e.getMessage());
                 }
 
-                // gender
+                // gender column
                 try {
-
                     boolean valid = false;
-
                     for (Persona.Gender enumGender : Persona.Gender.values()) {
                         if (values[1].equalsIgnoreCase(enumGender.toString())) {
                             gender = enumGender;
@@ -415,27 +410,26 @@ public class EthicalEngine {
                         }
                     }
 
+                    // throw exception when value is not found in enumeration and it is not empty
                     if (!(valid || values[1].isEmpty())) {
-                        throw new InvalidCharacteristicException("WARNING: invalid " +
-                                "characteristic in config file in line " + row);
+                        throw new InvalidCharacteristicException("WARNING: invalid characteristic" +
+                                " in config file in line " + lineCount);
                     }
                 } catch (InvalidCharacteristicException e) {
                     System.err.println(e.getMessage());
                 }
 
-                // age
+                // age column
                 try {
                     age = Integer.parseInt(values[2]);
                 } catch (NumberFormatException e) {
-                    System.err.println("WARNING: invalid number format in config " +
-                            "file in line " + row);
+                    System.err.println("WARNING: invalid number format in config file in line " +
+                            lineCount);
                 }
 
-                // bodytype
+                // body type column
                 try {
-
                     boolean valid = false;
-
                     for (Persona.BodyType enumBodyType : Persona.BodyType.values()) {
                         if (values[3].equalsIgnoreCase(enumBodyType.toString())) {
                             bodyType = enumBodyType;
@@ -444,19 +438,18 @@ public class EthicalEngine {
                         }
                     }
 
+                    // throw exception when value is not found in enumeration and it is not empty
                     if (!(valid || values[3].isEmpty())) {
-                        throw new InvalidCharacteristicException("WARNING: invalid " +
-                                "characteristic in config file in line " + row);
+                        throw new InvalidCharacteristicException("WARNING: invalid characteristic" +
+                                " in config file in line " + lineCount);
                     }
                 } catch (InvalidCharacteristicException e) {
                     System.err.println(e.getMessage());
                 }
 
-                // profession
+                // profession column
                 try {
-
                     boolean valid = false;
-
                     for (Human.Profession enumProfession : Human.Profession.values()) {
                         if (values[4].equalsIgnoreCase(enumProfession.toString())) {
                             profession = enumProfession;
@@ -465,69 +458,84 @@ public class EthicalEngine {
                         }
                     }
 
+                    // throw exception when value is not found in enumeration and it is not empty
                     if (!(valid || values[4].isEmpty())) {
-                        throw new InvalidCharacteristicException("WARNING: invalid " +
-                                "characteristic in config file in line " + row);
+                        throw new InvalidCharacteristicException("WARNING: invalid characteristic" +
+                                " in config file in line " + lineCount);
                     }
                 } catch (InvalidCharacteristicException e) {
                     System.err.println(e.getMessage());
                 }
 
-                // pregnant ?
+                // pregnant column
                 try {
-                    if (!(values[5].equalsIgnoreCase("true") ||
-                            values[5].equalsIgnoreCase("false") || values[5].isEmpty())) {
-                        throw new InvalidCharacteristicException("WARNING: invalid " +
-                                "characteristic in config file in line " + row);
+                    switch(values[5].toLowerCase()) {
+                        case "true":
+                        case "false":
+                        case "":
+                            pregnant = Boolean.parseBoolean(values[5]);
+                            break;
+                        default:
+                            throw new InvalidCharacteristicException("WARNING: invalid " +
+                                    "characteristic in config file in line " + lineCount);
                     }
-                    pregnant = Boolean.parseBoolean(values[5]);
                 } catch (InvalidCharacteristicException e) {
                     System.err.println(e.getMessage());
                 }
 
-                // you ?
+                // you column
                 try {
-                    if (!(values[6].equalsIgnoreCase("true") ||
-                            values[6].equalsIgnoreCase("false") || values[6].isEmpty())) {
-                        throw new InvalidCharacteristicException("WARNING: invalid " +
-                                "characteristic in config file in line " + row);
+                    switch(values[6].toLowerCase()) {
+                        case "true":
+                        case "false":
+                        case "":
+                            isYou = Boolean.parseBoolean(values[6]);
+                            break;
+                        default:
+                            throw new InvalidCharacteristicException("WARNING: invalid " +
+                                    "characteristic in config file in line " + lineCount);
                     }
-                    isYou = Boolean.parseBoolean(values[6]);
                 } catch (InvalidCharacteristicException e) {
                     System.err.println(e.getMessage());
                 }
 
-                // species
+                // species column
                 try {
-                    if (personaType.equals("animal") && values[7].isEmpty()) {
-                        throw new InvalidCharacteristicException("WARNING: invalid " +
-                                "characteristic in config file in line " + row);
+                    if ((personaType.equals("animal") && values[7].isEmpty())) {
+                        throw new InvalidCharacteristicException("WARNING: invalid characteristic" +
+                                " in config file in line " + lineCount);
+                    } else {
+                        species = values[7].toLowerCase();
                     }
-                    species = values[7].toLowerCase();
                 } catch (InvalidCharacteristicException e) {
                     System.err.println(e.getMessage());
                 }
 
-                // is pet ?
+                // pet column
                 try {
-                    if (!(values[8].equalsIgnoreCase("true") ||
-                            values[8].equalsIgnoreCase("false") || values[8].isEmpty())) {
-                        throw new InvalidCharacteristicException("WARNING: invalid " +
-                                "characteristic in config file in line " + row);
+                    switch(values[8].toLowerCase()) {
+                        case "true":
+                        case "false":
+                        case "":
+                            isPet = Boolean.parseBoolean(values[8]);
+                            break;
+                        default:
+                            throw new InvalidCharacteristicException("WARNING: invalid " +
+                                    "characteristic in config file in line " + lineCount);
                     }
-                    isPet = Boolean.parseBoolean(values[8]);
                 } catch (InvalidCharacteristicException e) {
                     System.err.println(e.getMessage());
                 }
 
-                // passenger or pedestrian
+                // role column
                 try {
                     if (!(values[9].equalsIgnoreCase("passenger") ||
                             values[9].equalsIgnoreCase("pedestrian"))) {
-                        throw new InvalidCharacteristicException("WARNING: invalid " +
-                                "characteristic in config file in line " + row);
+                        throw new InvalidCharacteristicException("WARNING: invalid characteristic" +
+                                " in config file in line " + lineCount);
+                    } else {
+                        role = values[9].toLowerCase();
                     }
-                    role = values[9].toLowerCase();
                 } catch (InvalidCharacteristicException e) {
                     System.err.println(e.getMessage());
                 }
@@ -535,21 +543,21 @@ public class EthicalEngine {
 
             if (personaType.equals("human")) {
                 persona = new Human(age, profession, gender, bodyType, pregnant, isYou);
-            } else if (personaType.equals("animal")) {
+            } else {
                 persona = new Animal(age, gender, bodyType, species, isPet);
             }
 
             if (role.equals("passenger")) {
                 passengerList.add(persona);
-            } else if (role.equals("pedestrian")) {
+            } else {
                 pedestrianList.add(persona);
             }
 
             line = inputStream.readLine();
-            row++;
+            lineCount++;
 
+            // when all line are done reading, create scenario and add to scenario list
             if (line == null) {
-                // create new scenario and add to scenarioList
                 Persona[] passengers = new Persona[passengerList.size()];
                 passengers = passengerList.toArray(passengers);
                 Persona[] pedestrians = new Persona[pedestrianList.size()];
@@ -575,53 +583,71 @@ public class EthicalEngine {
         Audit audit = new Audit();
         audit.setAuditType(USER_AUDIT_TYPE);
 
-        Scenario[] scenarios = new Scenario[NUM_OF_SCENARIOS_TO_SHOW];
         for (int i = 0; i < scenarioList.size(); i++) {
 
-            scenarios[(i+1) % 3] = scenarioList.get(i);
-
-            System.out.println(scenarios[(i+1) % 3]);
+            System.out.println(scenarioList.get(i));
             System.out.println("Who should be saved? (passenger(s) [1] or pedestrian(s) [2])");
-            String answer = keyboard.next();
-            Decision decision = Decision.PASSENGERS;
+            Decision decision;
 
-            switch (answer) {
-                case "passenger":
-                case "passengers":
-                case "1":
-                    decision = Decision.PASSENGERS;
+            while (true) {
+                try {
+                    String answer = keyboard.next();
+                    switch (answer) {
+                        case "passenger":
+                        case "passengers":
+                        case "1":
+                            decision = Decision.PASSENGERS;
+                            break;
+                        case "pedestrian":
+                        case "pedestrians":
+                        case "2":
+                            decision = Decision.PEDESTRIANS;
+                            break;
+                        default:
+                            throw new InvalidInputException("Invalid response. Who should be " +
+                                    "saved? (passenger(s) [1] or pedestrian(s) [2])");
+                    }
                     break;
-                case "pedestrian":
-                case "pedestrians":
-                case "2":
-                    decision = Decision.PEDESTRIANS;
-                    break;
+                } catch (InvalidInputException e) {
+                    System.out.println(e.getMessage());
+                }
             }
-            // TODO: what to do with other outputs?
 
-            audit.run(scenarios[(i+1) % 3], decision);
+            audit.run(scenarioList.get(i), decision);
 
-            if ((i+1) % 3 == 0 && i < scenarioList.size() - 1) {
-
+            if ((i+1) % NUM_OF_SCENARIOS_BEFORE_STATISTIC == 0 && i < scenarioList.size() - 1) {
+                // when three scenarios have been shown and answered
                 audit.printStatistic();
-
                 if (consent) {
                     audit.printToFile(resultsFilepath);
                 }
 
                 System.out.println("Would you like to continue? (yes/no)");
-                String cont = keyboard.next();
-                // TODO: what if answer is neither yes nor no
-                if (cont.equalsIgnoreCase("no")) {
-                    System.out.println("That's all. Press Enter to quit.");
-                    keyboard.nextLine();
-                    String exit = keyboard.nextLine();
-                    if (exit.isEmpty()) {
-                        throw new UserExitException();
+                while (true) {
+                    try {
+                        String cont = keyboard.next();
+
+                        if (cont.equalsIgnoreCase("yes")) {
+                            break;
+                        } else if (cont.equalsIgnoreCase("no")) {
+                            System.out.println("That's all. Press Enter to quit.");
+                            keyboard.nextLine();
+                            String exit = keyboard.nextLine();
+                            if (exit.isEmpty()) {
+                                throw new UserExitException();
+                            }
+                        } else {
+                            throw new InvalidInputException("Invalid response. Would you like to " +
+                                    "continue? (yes/no)");
+                        }
+                    } catch (InvalidInputException e) {
+                        System.out.println(e.getMessage());
                     }
                 }
             }
         }
+
+        // all scenarios have been presented
         audit.printStatistic();
         if (consent) {
             audit.printToFile(resultsFilepath);
@@ -660,46 +686,64 @@ public class EthicalEngine {
 
             System.out.println(scenario);
             System.out.println("Who should be saved? (passenger(s) [1] or pedestrian(s) [2])");
-            String answer = keyboard.next();
-            Decision decision = Decision.PASSENGERS;
+            Decision decision;
 
-            switch (answer) {
-                case "passenger":
-                case "passengers":
-                case "1":
-                    decision = Decision.PASSENGERS;
+            while (true) {
+                try {
+                    String answer = keyboard.next();
+                    switch (answer) {
+                        case "passenger":
+                        case "passengers":
+                        case "1":
+                            decision = Decision.PASSENGERS;
+                            break;
+                        case "pedestrian":
+                        case "pedestrians":
+                        case "2":
+                            decision = Decision.PEDESTRIANS;
+                            break;
+                        default:
+                            throw new InvalidInputException("Invalid response. Who should be " +
+                                    "saved? (passenger(s) [1] or pedestrian(s) [2])");
+                    }
                     break;
-                case "pedestrian":
-                case "pedestrians":
-                case "2":
-                    decision = Decision.PEDESTRIANS;
-                    break;
+                } catch (InvalidInputException e) {
+                    System.out.println(e.getMessage());
+                }
             }
-            // TODO: what to do with other outputs?
 
             audit.run(scenario, decision);
 
-            if (i % 3 == 0) {
-
+            if (i % NUM_OF_SCENARIOS_BEFORE_STATISTIC == 0) {
+                // when three scenarios have been shown and answered
                 audit.printStatistic();
-
                 if (consent) {
                     audit.printToFile(resultsFilepath);
                 }
 
                 System.out.println("Would you like to continue? (yes/no)");
-                String cont = keyboard.next();
-                // TODO: what if answer is neither yes nor no
-                if (cont.equalsIgnoreCase("no")) {
-                    System.out.println("That's all. Press Enter to quit.");
-                    keyboard.nextLine();
-                    String exit = keyboard.nextLine();
-                    if (exit.isEmpty()) {
-                        throw new UserExitException();
+                while (true) {
+                    try {
+                        String cont = keyboard.next();
+
+                        if (cont.equalsIgnoreCase("yes")) {
+                            break;
+                        } else if (cont.equalsIgnoreCase("no")) {
+                            System.out.println("That's all. Press Enter to quit.");
+                            keyboard.nextLine();
+                            String exit = keyboard.nextLine();
+                            if (exit.isEmpty()) {
+                                throw new UserExitException();
+                            }
+                        } else {
+                            throw new InvalidInputException("Invalid response. Would you like to " +
+                                    "continue? (yes/no)");
+                        }
+                    } catch (InvalidInputException e) {
+                        System.out.println(e.getMessage());
                     }
                 }
             }
-
             i++;
         }
     }
@@ -714,6 +758,7 @@ public class EthicalEngine {
         scenarios = scenarioList.toArray(scenarios);
 
         Audit audit = new Audit(scenarios);
+        audit.setAuditType(ALGORITHM_AUDIT_TYPE);
         audit.run();
         audit.printStatistic();
         audit.printToFile(resultsFilepath);
@@ -726,11 +771,15 @@ public class EthicalEngine {
      */
     public void generateScenarios() throws FileNotFoundException {
         Audit audit = new Audit();
+        audit.setAuditType(ALGORITHM_AUDIT_TYPE);
         audit.run(NUM_OF_GENERATED_SCENARIOS);
         audit.printStatistic();
         audit.printToFile(resultsFilepath);
     }
 
+    /**
+     * Prints a help documentation to tell users how to correctly call and execute the program.
+     */
     private static void printHelp() {
         System.out.println("EthicalEngine - COMP90041 - Final Project");
         System.out.println("Usage: java EthicalEngine [arguments]");
@@ -740,7 +789,6 @@ public class EthicalEngine {
         System.out.println("-h or --help" + TAB + "Print Help (this message) and exit");
         System.out.println("-r or --results" + TAB + "Optional: path to results log file");
         System.out.print("-i or --interactive" + TAB + "Optional: launches interactive mode");
-        // TODO: check why using constant variable tab doesn't match out_help
     }
 
 }

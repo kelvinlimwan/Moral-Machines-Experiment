@@ -26,8 +26,6 @@ public class ScenarioGenerator {
     private int pedestrianCountMinimum;
     private int pedestrianCountMaximum;
 
-    // constructors
-
     /**
      * Creates a scenario generator with a Random object with a completely random seed, a default
      * minimum number of passengers, maximum number of passengers, minimum number of pedestrians and
@@ -35,7 +33,6 @@ public class ScenarioGenerator {
      */
     public ScenarioGenerator() {
         random = new Random();
-
         this.passengerCountMinimum = DEFAULT_MIN_COUNT;
         this.passengerCountMaximum = DEFAULT_MAX_COUNT;
         this.pedestrianCountMinimum = DEFAULT_MIN_COUNT;
@@ -64,19 +61,14 @@ public class ScenarioGenerator {
      */
     public ScenarioGenerator(long seed, int passengerCountMinimum, int passengerCountMaximum,
                              int pedestrianCountMinimum, int pedestrianCountMaximum) {
-
         random = new Random(seed);
-
         this.passengerCountMinimum = passengerCountMinimum;
-        // set max equal to min if max is smaller than min
+        // since max cannot be smaller than min
         this.passengerCountMaximum = Math.max(passengerCountMaximum, passengerCountMinimum);
-
         this.pedestrianCountMinimum = pedestrianCountMinimum;
-        // set max equal to min if max is smaller than min
+        // since max cannot be smaller than min
         this.pedestrianCountMaximum = Math.max(pedestrianCountMaximum, pedestrianCountMinimum);
     }
-
-    // mutator methods
 
     /**
      * Sets the scenario generator's minimum number of passengers.
@@ -86,6 +78,7 @@ public class ScenarioGenerator {
     public void setPassengerCountMin(int min) {
         passengerCountMinimum = min;
     }
+
     /**
      * Sets the scenario generator's maximum number of passengers.
      * @param max the maximum number of passengers to set the scenario generator's maximum number of
@@ -94,6 +87,7 @@ public class ScenarioGenerator {
     public void setPassengerCountMax(int max) {
         passengerCountMaximum = Math.max(max, passengerCountMinimum);
     }
+
     /**
      * Sets the scenario generator's minimum number of pedestrians.
      * @param min the minimum number of pedestrians to set the scenario generator's minimum number
@@ -102,6 +96,7 @@ public class ScenarioGenerator {
     public void setPedestrianCountMin(int min) {
         pedestrianCountMinimum = min;
     }
+
     /**
      * Sets the scenario generator's maximum number of pedestrians.
      * @param max the maximum number of pedestrians to set the scenario generator's maximum number
@@ -116,7 +111,6 @@ public class ScenarioGenerator {
      * @return the random human.
      */
     public Human getRandomHuman() {
-
         int age = random.nextInt(HUMAN_AGE_CEILING);
         Human.Profession profession = Human.Profession.values()[random.nextInt(NUM_OF_PROFESSIONS)];
         Persona.Gender gender = Persona.Gender.values()[random.nextInt(NUM_OF_GENDERS)];
@@ -125,6 +119,7 @@ public class ScenarioGenerator {
 
         return new Human(age, profession, gender, bodyType, isPregnant);
     }
+
     /**
      * Creates a random Animal object with random characteristics.
      * @return the random animal.
@@ -148,7 +143,6 @@ public class ScenarioGenerator {
      * @return the random scenario.
      */
     public Scenario generate() {
-
         // create random passengers array
         Persona[] passengers = new Persona[passengerCountMinimum +
                 random.nextInt(passengerCountMaximum - passengerCountMinimum + 1)];
@@ -173,9 +167,9 @@ public class ScenarioGenerator {
             }
         }
 
-        // impossible if only animals
+        // when there is at least one human
         if (humanPassengerCount + humanPedestrianCount > 0) {
-            // when you in scenario (50% chance), randomly assign to passenger or pedestrian
+            // 50% chance of you being in the scenario (when random.nextBoolean() returns true)
             if (random.nextBoolean()) {
                 int rand = random.nextInt(humanPassengerCount + humanPedestrianCount);
                 if (rand < humanPassengerCount) {
@@ -186,7 +180,7 @@ public class ScenarioGenerator {
             }
         }
 
-        boolean isLegalCrossing = random.nextBoolean(); // decides if green or red light
+        boolean isLegalCrossing = random.nextBoolean();
 
         return new Scenario(passengers, pedestrians, isLegalCrossing);
     }

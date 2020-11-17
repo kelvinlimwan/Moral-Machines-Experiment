@@ -18,6 +18,7 @@ public class Audit {
     // constant variables
     private static final int MAX_NUM_OF_PASSENGERS = 7;
     private static final int MAX_NUM_OF_PEDESTRIANS = 10;
+    public static final String NEW_LINE = "\n";
     private static final String DEFAULT_AUDIT_TYPE = "Unspecified";
     private static final String DEFAULT_FILEPATH = "results.log";
 
@@ -31,8 +32,6 @@ public class Audit {
     private ArrayList<String> characteristics;
     private ArrayList<Integer> total;
     private ArrayList<Integer> survived;
-
-    // constructor
 
     /**
      * Creates an audit with a default type, scenario generator, runs, total age of survivors, total
@@ -52,6 +51,7 @@ public class Audit {
         total = new ArrayList<Integer>();
         survived = new ArrayList<Integer>();
     }
+
     /**
      * Creates an audit with a specified scenario list, a default type, scenario generator, runs,
      * total age of survivors, total number of survivors, characteristics list, total statistics
@@ -62,8 +62,6 @@ public class Audit {
         Collections.addAll(scenarioList, scenarios);
     }
 
-    // accessor method
-
     /**
      * Gets the audit's type.
      * @return the audit's type.
@@ -71,8 +69,6 @@ public class Audit {
     public String getAuditType() {
         return auditType;
     }
-
-    // mutator method
 
     /**
      * Sets the audit's type.
@@ -92,9 +88,10 @@ public class Audit {
 
         runs++;
 
+        // add passengers, pedestrians and legal crossing statistics to total array first since they
+        // are scenario characteristics
         addStatistic("passengers", scenario.getPassengerCount(), total);
         addStatistic("pedestrians", scenario.getPedestrianCount(), total);
-
         if (scenario.isLegalCrossing()) {
             addStatistic("green", scenario.getPassengerCount() + scenario.getPedestrianCount(),
                     total);
@@ -103,7 +100,7 @@ public class Audit {
                     total);
         }
 
-        // fill up total array
+        // fill total array with persona characteristics
         for (Persona passenger : scenario.getPassengers()) {
             for (String characteristic : passenger.getCharacteristics()) {
                 addStatistic(characteristic, 1, total);
@@ -115,7 +112,8 @@ public class Audit {
             }
         }
 
-        // find survivors array
+        // find survivors and add passengers, pedestrians and legal crossing statistics to survived
+        // array
         Persona[] survivors;
         if (decision == EthicalEngine.Decision.PASSENGERS) {
             survivors = scenario.getPassengers();
@@ -135,11 +133,13 @@ public class Audit {
             }
         }
 
-        // fill up survived array
+        // fill survived array with persona characteristics
         for (Persona survivor : survivors) {
             for (String characteristic : survivor.getCharacteristics()) {
                 addStatistic(characteristic, 1, survived);
             }
+
+            // for average age of human survivors
             if (survivor instanceof Human) {
                 survivorAgeTotal += survivor.getAge();
                 survivorCount++;
@@ -157,9 +157,10 @@ public class Audit {
 
         for (Scenario scenario : scenarioList) {
 
+            // add passengers, pedestrians and legal crossing statistics to total first since they
+            // are scenario characteristics
             addStatistic("passengers", scenario.getPassengerCount(), total);
             addStatistic("pedestrians", scenario.getPedestrianCount(), total);
-
             if (scenario.isLegalCrossing()) {
                 addStatistic("green", scenario.getPassengerCount() + scenario.getPedestrianCount(),
                         total);
@@ -168,7 +169,7 @@ public class Audit {
                         total);
             }
 
-            // fill up total array
+            // fill up total array with persona characteristics
             for (Persona passenger : scenario.getPassengers()) {
                 for (String characteristic : passenger.getCharacteristics()) {
                     addStatistic(characteristic, 1, total);
@@ -180,7 +181,8 @@ public class Audit {
                 }
             }
 
-            // find survivors array
+            // find survivors from the decision method in EthicalEngine and add passengers,
+            // pedestrians and legal crossing statistics to survived array
             Persona[] survivors;
             if (EthicalEngine.decide(scenario) == EthicalEngine.Decision.PASSENGERS) {
                 survivors = scenario.getPassengers();
@@ -200,11 +202,13 @@ public class Audit {
                 }
             }
 
-            // fill up survived array
+            // fill survived array with persona characteristics
             for (Persona survivor : survivors) {
                 for (String characteristic : survivor.getCharacteristics()) {
                     addStatistic(characteristic, 1, survived);
                 }
+
+                // for average age of human survivors
                 if (survivor instanceof Human) {
                     survivorAgeTotal += survivor.getAge();
                     survivorCount++;
@@ -226,9 +230,10 @@ public class Audit {
 
             Scenario scenario = scenarioGenerator.generate();
 
+            // add passengers, pedestrians and legal crossing statistics to total first since they
+            // are scenario characteristics
             addStatistic("passengers", scenario.getPassengerCount(), total);
             addStatistic("pedestrians", scenario.getPedestrianCount(), total);
-
             if (scenario.isLegalCrossing()) {
                 addStatistic("green", scenario.getPassengerCount() + scenario.getPedestrianCount(),
                         total);
@@ -237,7 +242,7 @@ public class Audit {
                         total);
             }
 
-            // fill up total array
+            // fill up total array with persona characteristics
             for (Persona passenger : scenario.getPassengers()) {
                 for (String characteristic : passenger.getCharacteristics()) {
                     addStatistic(characteristic, 1, total);
@@ -249,7 +254,8 @@ public class Audit {
                 }
             }
 
-            // find survivors array
+            // find survivors from the decision method in EthicalEngine and add passengers,
+            // pedestrians and legal crossing statistics to survived array
             Persona[] survivors;
             if (EthicalEngine.decide(scenario) == EthicalEngine.Decision.PASSENGERS) {
                 survivors = scenario.getPassengers();
@@ -269,11 +275,13 @@ public class Audit {
                 }
             }
 
-            // fill up survived array
+            // fill survived array with persona characteristics
             for (Persona survivor : survivors) {
                 for (String characteristic : survivor.getCharacteristics()) {
                     addStatistic(characteristic, 1, survived);
                 }
+
+                // for average age of human survivors
                 if (survivor instanceof Human) {
                     survivorAgeTotal += survivor.getAge();
                     survivorCount++;
@@ -305,7 +313,7 @@ public class Audit {
         }
 
         if (fileObject.exists()) {
-            // append
+            // append to existing file
             inputStream = new PrintWriter(new FileOutputStream(fileObject, true));
         } else {
             // create new file
@@ -327,54 +335,66 @@ public class Audit {
             return "no audit available";
         }
 
-        String output = "======================================\n# " + auditType + " Audit\n" +
-                "======================================\n" + "- % SAVED AFTER " + runs + " RUNS\n";
+        String output = "======================================" + NEW_LINE + "# " + auditType +
+                " Audit" + NEW_LINE + "======================================" + NEW_LINE +
+                "- % SAVED AFTER " + runs + " RUNS" + NEW_LINE;
 
-        // list of names and stats with indices perfectly matching
         ArrayList<String> characteristicNames = new ArrayList<String>();
-        ArrayList<Double> characteristicStats = new ArrayList<Double>();
+        ArrayList<Double> characteristicRatios = new ArrayList<Double>();
 
+        // add characteristics and ratios to characteristicNames and characteristicRatios
+        // respectively, in descending order of ratio and alphabetical order in case of ties
         for (int i = 0; i < characteristics.size(); i++) {
-
-            if (total.get(i) > 0) {
-
-                double roundedRatio = Math.ceil((double) survived.get(i) / total.get(i) * 100) / 100;
-                int index = characteristicStats.size();
-                for (int j = 0; j < characteristicStats.size(); j++) {
-                    if (roundedRatio > characteristicStats.get(j)) {
-                        index = j;
-                        break;
-                    }
+            double ratio = Math.ceil((double) survived.get(i) / total.get(i) * 100) / 100;
+            int index = characteristicRatios.size();
+            for (int j = 0; j < characteristicRatios.size(); j++) {
+                if (ratio > characteristicRatios.get(j)) {
+                    index = j;
+                    break;
                 }
-
-                characteristicNames.add(index, characteristics.get(i));
-                characteristicStats.add(index, roundedRatio);
             }
+            characteristicNames.add(index, characteristics.get(i));
+            characteristicRatios.add(index, ratio);
         }
 
-        for (int i = 0; i < characteristicStats.size(); i++) {
-            output += String.format("%s: %.2f\n", characteristicNames.get(i),
-                    characteristicStats.get(i));
+        // append the characteristics and ratios to the output string
+        for (int i = 0; i < characteristicRatios.size(); i++) {
+            output += String.format("%s: %.2f" + NEW_LINE, characteristicNames.get(i),
+                    characteristicRatios.get(i));
         }
 
+        // compute the average age of human survivors
         double averageAge = Math.ceil((double) survivorAgeTotal / survivorCount * 100) / 100;
-        output += String.format("--\naverage age: %.2f", averageAge);
+        output += String.format("--" + NEW_LINE + "average age: %.2f", averageAge);
 
         return output;
 
     }
 
+    /**
+     * Adds appropriate statistic to the specified array (total or survived).
+     * @param characteristic the characteristic to get the index where the statistic should be added
+     *                       in the array.
+     * @param toAdd the number to add to the statistic.
+     * @param array the array where the statistic should be added to.
+     */
     private void addStatistic(String characteristic, int toAdd, ArrayList<Integer> array) {
 
-        if (characteristic.isEmpty() || characteristic.equals("unknown") ||
-                characteristic.equals("unspecified") || characteristic.equals("none")) {
-            return;
+        // ignore default values
+        switch (characteristic) {
+            case "unknown":
+            case "unspecified":
+            case "none":
+            case "":
+                return;
         }
 
         if (characteristics.contains(characteristic)) {
+            // add to existing statistic
             int index = characteristics.indexOf(characteristic);
             array.set(index, array.get(index) + toAdd);
         } else {
+            // set statistic
             int index = characteristics.size();
             for (int i = 0; i < characteristics.size(); i++) {
                 if (characteristic.compareTo(characteristics.get(i)) < 0) {
@@ -386,6 +406,7 @@ public class Audit {
             array.add(index, toAdd);
 
             if (array.equals(total)) {
+                // add value to survived for future indexing
                 survived.add(index, 0);
             }
         }

@@ -19,8 +19,6 @@ public class Scenario {
     private ArrayList<Persona> pedestrianList;
     private boolean isLegalCrossing;
 
-    // constructor
-
     /**
      * Creates a scenario with the specified passengers, pedestrians and whether the crossing is
      * legal.
@@ -39,8 +37,6 @@ public class Scenario {
         this.isLegalCrossing = isLegalCrossing;
     }
 
-    // accessor methods
-
     /**
      * Gets whether you are in the car.
      * @return whether you are in the car.
@@ -53,6 +49,7 @@ public class Scenario {
         }
 	    return false;
     }
+
     /**
      * Gets whether you are in the lane.
      * @return whether you are in the lane.
@@ -65,24 +62,27 @@ public class Scenario {
         }
         return false;
     }
+
     /**
      * Gets the scenario's passengers.
      * @return a persona array of the scenario's passengers.
      */
     public Persona[] getPassengers() {
-	    Persona[] output = new Persona[passengerList.size()];
-	    output = passengerList.toArray(output);
-	    return output;
+	    Persona[] copy = new Persona[passengerList.size()];
+        copy = passengerList.toArray(copy);
+	    return copy;
     }
+
     /**
      * Gets the scenario's pedestrians.
      * @return a persona array of the scenario's pedestrians.
      */
     public Persona[] getPedestrians() {
-        Persona[] output = new Persona[pedestrianList.size()];
-        output = pedestrianList.toArray(output);
-        return output;
+        Persona[] copy = new Persona[pedestrianList.size()];
+        copy = pedestrianList.toArray(copy);
+        return copy;
     }
+
     /**
      * Gets whether the scenario's crossing is legal.
      * @return whether the scenario's crossing is legal.
@@ -90,6 +90,7 @@ public class Scenario {
     public boolean isLegalCrossing() {
 	    return isLegalCrossing;
     }
+
     /**
      * Gets the scenario's number of passengers.
      * @return a persona array of the scenario's number of passengers.
@@ -97,6 +98,7 @@ public class Scenario {
     public int getPassengerCount() {
 	    return passengerList.size();
     }
+
     /**
      * Gets the scenario's number of pedestrians.
      * @return a persona array of the scenario's number of pedestrians.
@@ -104,8 +106,6 @@ public class Scenario {
     public int getPedestrianCount() {
 	    return pedestrianList.size();
     }
-
-    // mutator method
 
     /**
      * Sets whether the crossing is legal.
@@ -127,15 +127,18 @@ public class Scenario {
                 NEW_LINE + "======================================" + NEW_LINE;
         output += "Legal Crossing: " + (isLegalCrossing ? "yes" : "no") + NEW_LINE;
 
+        // add all passengers
         output += "Passengers (" + getPassengerCount() + ")" + NEW_LINE;
         for (int i = 0; i < getPassengerCount(); i++) {
             output += "- " + passengerList.get(i) + NEW_LINE;
         }
 
+        //add all pedestrians
         output += "Pedestrians (" + getPedestrianCount() + ")" +
                 (getPedestrianCount() == 0 ? "" : NEW_LINE);
         for (int i = 0; i < getPedestrianCount(); i++) {
-            output += "- " + pedestrianList.get(i) + (i == getPedestrianCount() - 1 ? "" : NEW_LINE);
+            output += "- " + pedestrianList.get(i) + (i == getPedestrianCount() - 1 ? "" :
+                    NEW_LINE);
         }
 
         return output;

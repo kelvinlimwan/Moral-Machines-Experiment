@@ -15,7 +15,6 @@ public class Animal extends Persona {
     private String species;
     private boolean isPet;
 
-    // constructors
     /**
      * Creates an animal with a default age, gender, body type, species and whether it is a pet.
      */
@@ -23,6 +22,7 @@ public class Animal extends Persona {
         species = DEFAULT_SPECIES;
         isPet = false;
     }
+
     /**
      * Creates an animal with the specified species and a default age, gender, body type and whether
      * it is a pet.
@@ -32,6 +32,7 @@ public class Animal extends Persona {
         this.species = species.toLowerCase();
         isPet = false;
     }
+
     /**
      * Creates an animal with the specified age, gender, body type, species and whether it is a pet.
      * @param age the specified age.
@@ -42,9 +43,11 @@ public class Animal extends Persona {
      */
     public Animal(int age, Gender gender, BodyType bodyType, String species, boolean isPet) {
         super(age, gender, bodyType);
+
         this.species = species.toLowerCase();
         this.isPet = isPet;
     }
+
     /**
      * Creates an animal with the same age, gender, body type, species and whether it is a pet as
      * another animal.
@@ -55,7 +58,6 @@ public class Animal extends Persona {
                 otherAnimal.getSpecies(), otherAnimal.isPet());
     }
 
-    // accessor methods
     /**
      * Gets the animal's species.
      * @return the animal's species.
@@ -63,6 +65,7 @@ public class Animal extends Persona {
     public String getSpecies() {
         return species;
     }
+
     /**
      * Gets whether the animal is a pet.
      * @return whether the animal is a pet.
@@ -77,7 +80,6 @@ public class Animal extends Persona {
      */
     @Override
     public String[] getCharacteristics() {
-
         String[] characteristics = new String[NUM_OF_CHARACTERISTICS];
         characteristics[0] = "animal";
         characteristics[1] = getSpecies().toLowerCase();
@@ -86,7 +88,6 @@ public class Animal extends Persona {
         return characteristics;
     }
 
-    // mutator methods
     /**
      * Sets the animal's species.
      * @param species the species to set the animal's species to.
@@ -94,6 +95,7 @@ public class Animal extends Persona {
     public void setSpecies(String species){
         this.species = species.toLowerCase();
     }
+
     /**
      * Sets whether the animal is a pet.
      * @param isPet the 'whether the animal is a pet' to set the animal's 'whether it is a pet' to.

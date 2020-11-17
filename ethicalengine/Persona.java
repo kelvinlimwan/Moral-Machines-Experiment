@@ -7,7 +7,7 @@ package ethicalengine;
  */
 public abstract class Persona {
 
-    // constants
+    // constant variables
     private static final int MIN_AGE = 0;
     private static final int DEFAULT_AGE = 15;
 
@@ -20,14 +20,13 @@ public abstract class Persona {
     private Gender gender;
     private BodyType bodyType;
 
-    // constructors
-
     /**
      * Creates a persona with a default age, gender and body type.
      */
     public Persona() {
         this(DEFAULT_AGE, Gender.UNKNOWN, BodyType.UNSPECIFIED);
     }
+
     /**
      * Creates a persona with the specified age, gender and body type.
      * @param age the specified age.
@@ -54,7 +53,6 @@ public abstract class Persona {
         this(otherPersona.getAge(), otherPersona.getGender(), otherPersona.getBodyType());
     }
 
-    // accessor methods
     /**
      * Gets the persona's age.
      * @return the persona's age.
@@ -62,6 +60,7 @@ public abstract class Persona {
     public int getAge() {
         return age;
     }
+
     /**
      * Gets the persona's gender.
      * @return the persona's gender.
@@ -69,6 +68,7 @@ public abstract class Persona {
     public Gender getGender() {
         return gender;
     }
+
     /**
      * Gets the persona's body type.
      * @return the persona's body type.
@@ -83,7 +83,6 @@ public abstract class Persona {
      */
     public abstract String[] getCharacteristics();
 
-    // mutator methods
     /**
      * Sets the persona's age.
      * @param age the age to set the persona's age to.
@@ -93,6 +92,7 @@ public abstract class Persona {
             this.age = age;
         }
     }
+
     /**
      * Sets the persona's gender.
      * @param gender the gender to set the persona's gender to.
@@ -100,6 +100,7 @@ public abstract class Persona {
     public void setGender(Gender gender) {
         this.gender = gender;
     }
+
     /**
      * Sets the persona's body type.
      * @param bodyType the body type to set the persona's body type to.
@@ -107,5 +108,4 @@ public abstract class Persona {
     public void setBodyType(BodyType bodyType) {
         this.bodyType = bodyType;
     }
-
 }
