@@ -14,8 +14,8 @@ public class Human extends Persona {
     private static final int NUM_OF_CHARACTERISTICS = 7;
 
     // enumerations
-    public enum AgeCategory {BABY, CHILD, ADULT, SENIOR};
-    public enum Profession {DOCTOR, CEO, CRIMINAL, HOMELESS, UNEMPLOYED, ENGINEER, BUILDER, NONE};
+    public enum AgeCategory {BABY, CHILD, ADULT, SENIOR}
+    public enum Profession {DOCTOR, CEO, CRIMINAL, HOMELESS, UNEMPLOYED, ENGINEER, STUDENT, NONE}
 
     // instance variables
     private Profession profession;
@@ -40,11 +40,7 @@ public class Human extends Persona {
      * @param bodyType the specified body type.
      */
     public Human(int age, Gender gender, BodyType bodyType) {
-        super(age, gender, bodyType);
-
-        profession = Profession.NONE;
-        isPregnant = false;
-        isYou = false;
+        this(age, Profession.NONE, gender, bodyType, false, false);
     }
 
     /**
@@ -57,6 +53,20 @@ public class Human extends Persona {
      */
     public Human(int age, Profession profession, Gender gender, BodyType bodyType,
                  boolean isPregnant) {
+        this(age, profession, gender, bodyType, isPregnant, false);
+    }
+
+    /**
+     * Creates a human with the specified age, gender, body type, profession, pregnancy status and
+     * whether he/she is you.
+     * @param age the specified age.
+     * @param gender the specified gender.
+     * @param bodyType the specified body type.
+     * @param isPregnant the specified pregnancy status.
+     * @param isYou whether he/she is 'you'.
+     */
+    public Human(int age, Profession profession, Gender gender, BodyType bodyType,
+                 boolean isPregnant, boolean isYou) {
         super(age, gender, bodyType);
 
         if (getAgeCategory() == AgeCategory.ADULT) {
@@ -71,21 +81,6 @@ public class Human extends Persona {
             this.isPregnant = false;
         }
 
-        isYou = false;
-    }
-
-    /**
-     * Creates a human with the specified age, gender, body type, profession, pregnancy status and
-     * whether he/she is you.
-     * @param age the specified age.
-     * @param gender the specified gender.
-     * @param bodyType the specified body type.
-     * @param isPregnant the specified pregnancy status.
-     * @param isYou whether he/she is 'you'.
-     */
-    public Human(int age, Profession profession, Gender gender, BodyType bodyType,
-                 boolean isPregnant, boolean isYou) {
-        this(age, profession, gender, bodyType, isPregnant);
         this.isYou = isYou;
     }
 
@@ -96,8 +91,7 @@ public class Human extends Persona {
      */
     public Human(Human otherHuman) {
         this(otherHuman.getAge(), otherHuman.getProfession(), otherHuman.getGender(),
-                otherHuman.getBodyType(), otherHuman.isPregnant());
-        isYou = otherHuman.isYou();
+                otherHuman.getBodyType(), otherHuman.isPregnant(), otherHuman.isYou());
     }
 
     /**
@@ -105,14 +99,16 @@ public class Human extends Persona {
      * @return the human's age category.
      */
     public AgeCategory getAgeCategory() {
-        // invariant in Persona class ensures age >= 0
         if (getAge() <= MAX_AGE_BABY) {
             return AgeCategory.BABY;
+
         } else if (getAge() <= MAX_AGE_CHILD) {
             return AgeCategory.CHILD;
+
         } else if (getAge() <= MAX_AGE_ADULT) {
             return AgeCategory.ADULT;
         }
+
         return AgeCategory.SENIOR;
     }
 
@@ -124,6 +120,7 @@ public class Human extends Persona {
         if (getAgeCategory() != AgeCategory.ADULT) {
             return Profession.NONE;
         }
+
         return profession;
     }
 
@@ -135,6 +132,7 @@ public class Human extends Persona {
         if (getGender() != Gender.FEMALE) {
             return false;
         }
+
         return isPregnant;
     }
 
@@ -190,8 +188,8 @@ public class Human extends Persona {
     public String toString() {
         return (isYou ? "you " : "") + getBodyType().toString().toLowerCase() + " " +
                 getAgeCategory().toString().toLowerCase() + " " +
-                (getAgeCategory() == AgeCategory.ADULT ? profession.toString().toLowerCase() +
-                        " " : "") + getGender().toString().toLowerCase() + (isPregnant ?
-                " pregnant" : "");
+                (getAgeCategory() == AgeCategory.ADULT ? profession.toString().toLowerCase() + " " :
+                        "") + getGender().toString().toLowerCase() + (isPregnant ? " pregnant" :
+                "");
     }
 }

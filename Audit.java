@@ -18,13 +18,12 @@ public class Audit {
     // constant variables
     private static final int MAX_NUM_OF_PASSENGERS = 7;
     private static final int MAX_NUM_OF_PEDESTRIANS = 10;
-    public static final String NEW_LINE = "\n";
+    private static final String NEW_LINE = "\n";
     private static final String DEFAULT_AUDIT_TYPE = "Unspecified";
     private static final String DEFAULT_FILEPATH = "results.log";
 
     // instance variables
     private String auditType;
-    private ScenarioGenerator scenarioGenerator;
     private ArrayList<Scenario> scenarioList;
     private int runs;
     private int survivorAgeTotal;
@@ -34,15 +33,12 @@ public class Audit {
     private ArrayList<Integer> survived;
 
     /**
-     * Creates an audit with a default type, scenario generator, runs, total age of survivors, total
-     * number of survivors, characteristics list, total statistics list and survived statistics list
-     * and an empty scenario list..
+     * Creates an audit with a default type, runs, total age of survivors, total number of
+     * survivors, characteristics list, total statistics list and survived statistics list and an
+     * empty scenario list.
      */
     public Audit() {
         auditType = DEFAULT_AUDIT_TYPE;
-        scenarioGenerator = new ScenarioGenerator();
-        scenarioGenerator.setPassengerCountMax(MAX_NUM_OF_PASSENGERS);
-        scenarioGenerator.setPedestrianCountMax(MAX_NUM_OF_PEDESTRIANS);
         scenarioList = new ArrayList<Scenario>();
         runs = 0;
         survivorAgeTotal = 0;
@@ -53,9 +49,9 @@ public class Audit {
     }
 
     /**
-     * Creates an audit with a specified scenario list, a default type, scenario generator, runs,
-     * total age of survivors, total number of survivors, characteristics list, total statistics
-     * list and survived statistics list.
+     * Creates an audit with a specified scenario list, a default type, runs, total age of
+     * survivors, total number of survivors, characteristics list, total statistics list and
+     * survived statistics list.
      */
     public Audit(Scenario[] scenarios) {
         this();
@@ -117,6 +113,7 @@ public class Audit {
         Persona[] survivors;
         if (decision == EthicalEngine.Decision.PASSENGERS) {
             survivors = scenario.getPassengers();
+
             addStatistic("passengers", scenario.getPassengerCount(), survived);
             if (scenario.isLegalCrossing()) {
                 addStatistic("green", scenario.getPassengerCount(), survived);
@@ -125,6 +122,7 @@ public class Audit {
             }
         } else {
             survivors = scenario.getPedestrians();
+
             addStatistic("pedestrians", scenario.getPedestrianCount(), survived);
             if (scenario.isLegalCrossing()) {
                 addStatistic("green", scenario.getPedestrianCount(), survived);
@@ -186,14 +184,17 @@ public class Audit {
             Persona[] survivors;
             if (EthicalEngine.decide(scenario) == EthicalEngine.Decision.PASSENGERS) {
                 survivors = scenario.getPassengers();
+
                 addStatistic("passengers", scenario.getPassengerCount(), survived);
                 if (scenario.isLegalCrossing()) {
                     addStatistic("green", scenario.getPassengerCount(), survived);
                 } else {
                     addStatistic("red", scenario.getPassengerCount(), survived);
                 }
+
             } else {
                 survivors = scenario.getPedestrians();
+
                 addStatistic("pedestrians", scenario.getPedestrianCount(), survived);
                 if (scenario.isLegalCrossing()) {
                     addStatistic("green", scenario.getPedestrianCount(), survived);
@@ -226,8 +227,11 @@ public class Audit {
 
         this.runs += runs;
 
-        for (int i = 0; i < runs; i++) {
+        ScenarioGenerator scenarioGenerator = new ScenarioGenerator();
+        scenarioGenerator.setPassengerCountMax(MAX_NUM_OF_PASSENGERS);
+        scenarioGenerator.setPedestrianCountMax(MAX_NUM_OF_PEDESTRIANS);
 
+        for (int i = 0; i < runs; i++) {
             Scenario scenario = scenarioGenerator.generate();
 
             // add passengers, pedestrians and legal crossing statistics to total first since they
@@ -259,14 +263,17 @@ public class Audit {
             Persona[] survivors;
             if (EthicalEngine.decide(scenario) == EthicalEngine.Decision.PASSENGERS) {
                 survivors = scenario.getPassengers();
+
                 addStatistic("passengers", scenario.getPassengerCount(), survived);
                 if (scenario.isLegalCrossing()) {
                     addStatistic("green", scenario.getPassengerCount(), survived);
                 } else {
                     addStatistic("red", scenario.getPassengerCount(), survived);
                 }
+
             } else {
                 survivors = scenario.getPedestrians();
+
                 addStatistic("pedestrians", scenario.getPedestrianCount(), survived);
                 if (scenario.isLegalCrossing()) {
                     addStatistic("green", scenario.getPedestrianCount(), survived);
@@ -302,6 +309,7 @@ public class Audit {
      * is printed to a default filepath, if the filepath already exists, the statistics is appended
      * to the filepath and otherwise it is created.
      * @param filepath the specified filepath.
+     * @throws FileNotFoundException if the target directory for results does not exist.
      */
     public void printToFile(String filepath) throws FileNotFoundException {
 
@@ -325,8 +333,8 @@ public class Audit {
     }
 
     /**
-     * Returns a string representation of the audit's statistics.
-     * @return the string representation ot the audit's statistics.
+     * Returns a summary of the audit.
+     * @return the string representation of the summary of the audit.
      */
     @Override
     public String toString() {
@@ -341,10 +349,10 @@ public class Audit {
 
         ArrayList<String> characteristicNames = new ArrayList<String>();
         ArrayList<Double> characteristicRatios = new ArrayList<Double>();
-
         // add characteristics and ratios to characteristicNames and characteristicRatios
         // respectively, in descending order of ratio and alphabetical order in case of ties
         for (int i = 0; i < characteristics.size(); i++) {
+
             double ratio = Math.ceil((double) survived.get(i) / total.get(i) * 100) / 100;
             int index = characteristicRatios.size();
             for (int j = 0; j < characteristicRatios.size(); j++) {
@@ -368,11 +376,10 @@ public class Audit {
         output += String.format("--" + NEW_LINE + "average age: %.2f", averageAge);
 
         return output;
-
     }
 
     /**
-     * Adds appropriate statistic to the specified array (total or survived).
+     * Adds the appropriate statistic to the specified array (total or survived).
      * @param characteristic the characteristic to get the index where the statistic should be added
      *                       in the array.
      * @param toAdd the number to add to the statistic.
@@ -393,6 +400,7 @@ public class Audit {
             // add to existing statistic
             int index = characteristics.indexOf(characteristic);
             array.set(index, array.get(index) + toAdd);
+
         } else {
             // set statistic
             int index = characteristics.size();
@@ -402,6 +410,7 @@ public class Audit {
                     break;
                 }
             }
+
             characteristics.add(index, characteristic);
             array.add(index, toAdd);
 

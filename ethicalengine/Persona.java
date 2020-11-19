@@ -12,8 +12,8 @@ public abstract class Persona {
     private static final int DEFAULT_AGE = 15;
 
     // enumerations
-    public enum Gender {FEMALE, MALE, UNKNOWN};
-    public enum BodyType {AVERAGE, ATHLETIC, OVERWEIGHT, UNSPECIFIED};
+    public enum Gender {FEMALE, MALE, UNKNOWN}
+    public enum BodyType {AVERAGE, ATHLETIC, OVERWEIGHT, UNSPECIFIED}
 
     // instance variables
     private int age;
@@ -34,7 +34,6 @@ public abstract class Persona {
      * @param bodyType the specified body type.
      */
     public Persona(int age, Gender gender, BodyType bodyType) {
-
         if (age >= MIN_AGE) {
             this.age = age;
         } else {

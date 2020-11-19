@@ -1,6 +1,6 @@
 class,gender,age,bodyType,profession,pregnant,isYou,species,isPet,role
 scenario:green,,,,,,,,,
-human,female,24,average,doctor,FALSE,TRUE,,,passenger
+human,female,24,average,doctor,3,TRUE,,,passenger
 human,male,40,overweight,unemployed,FALSE,FALSE,,,passenger
 human,female,2,average,,FALSE,FALSE,,,passenger
 human,male,82,average,,FALSE,FALSE,,,pedestrian

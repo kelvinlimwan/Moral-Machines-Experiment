@@ -34,6 +34,17 @@ public class Animal extends Persona {
     }
 
     /**
+     * Creates an animal with the specified age, gender and body type and a default species and
+     * whether it is a pet.
+     * @param age the specified age.
+     * @param gender the specified gender.
+     * @param bodyType the specified body type.
+     */
+    public Animal(int age, Gender gender, BodyType bodyType) {
+        this(age, gender, bodyType, DEFAULT_SPECIES, false);
+    }
+
+    /**
      * Creates an animal with the specified age, gender, body type, species and whether it is a pet.
      * @param age the specified age.
      * @param gender the specified gender.

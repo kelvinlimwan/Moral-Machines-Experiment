@@ -124,8 +124,8 @@ public class Scenario {
     public String toString() {
 
 	    String output = "======================================" + NEW_LINE + "# Scenario" +
-                NEW_LINE + "======================================" + NEW_LINE;
-        output += "Legal Crossing: " + (isLegalCrossing ? "yes" : "no") + NEW_LINE;
+                NEW_LINE + "======================================" + NEW_LINE +
+                "Legal Crossing: " + (isLegalCrossing ? "yes" : "no") + NEW_LINE;
 
         // add all passengers
         output += "Passengers (" + getPassengerCount() + ")" + NEW_LINE;
@@ -133,9 +133,9 @@ public class Scenario {
             output += "- " + passengerList.get(i) + NEW_LINE;
         }
 
-        //add all pedestrians
-        output += "Pedestrians (" + getPedestrianCount() + ")" +
-                (getPedestrianCount() == 0 ? "" : NEW_LINE);
+        // add all pedestrians
+        output += "Pedestrians (" + getPedestrianCount() + ")" + (getPedestrianCount() == 0 ? "" :
+                NEW_LINE);
         for (int i = 0; i < getPedestrianCount(); i++) {
             output += "- " + pedestrianList.get(i) + (i == getPedestrianCount() - 1 ? "" :
                     NEW_LINE);

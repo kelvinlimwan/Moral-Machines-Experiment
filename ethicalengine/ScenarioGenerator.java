@@ -62,9 +62,11 @@ public class ScenarioGenerator {
     public ScenarioGenerator(long seed, int passengerCountMinimum, int passengerCountMaximum,
                              int pedestrianCountMinimum, int pedestrianCountMaximum) {
         random = new Random(seed);
+
         this.passengerCountMinimum = passengerCountMinimum;
         // since max cannot be smaller than min
         this.passengerCountMaximum = Math.max(passengerCountMaximum, passengerCountMinimum);
+
         this.pedestrianCountMinimum = pedestrianCountMinimum;
         // since max cannot be smaller than min
         this.pedestrianCountMaximum = Math.max(pedestrianCountMaximum, pedestrianCountMinimum);
@@ -143,9 +145,11 @@ public class ScenarioGenerator {
      * @return the random scenario.
      */
     public Scenario generate() {
+
         // create random passengers array
-        Persona[] passengers = new Persona[passengerCountMinimum +
-                random.nextInt(passengerCountMaximum - passengerCountMinimum + 1)];
+        int numOfPassengers = passengerCountMinimum + random.nextInt(passengerCountMaximum -
+                passengerCountMinimum + 1);
+        Persona[] passengers = new Persona[numOfPassengers];
         int humanPassengerCount = random.nextInt(passengers.length + 1);
         for (int i = 0; i < passengers.length; i++) {
             if (i < humanPassengerCount) {
@@ -156,8 +160,9 @@ public class ScenarioGenerator {
         }
 
         // create random pedestrians array
-        Persona[] pedestrians = new Persona[pedestrianCountMinimum +
-                random.nextInt(pedestrianCountMaximum - pedestrianCountMinimum + 1)];
+        int numOfPedestrians = pedestrianCountMinimum + random.nextInt(pedestrianCountMaximum -
+                pedestrianCountMinimum + 1);
+        Persona[] pedestrians = new Persona[numOfPedestrians];
         int humanPedestrianCount = random.nextInt(pedestrians.length + 1);
         for (int i = 0; i < pedestrians.length; i++) {
             if (i < humanPedestrianCount) {
@@ -169,14 +174,18 @@ public class ScenarioGenerator {
 
         // when there is at least one human
         if (humanPassengerCount + humanPedestrianCount > 0) {
-            // 50% chance of you being in the scenario (when random.nextBoolean() returns true)
+            // 50% chance of you being in the scenario
             if (random.nextBoolean()) {
+                Human human;
                 int rand = random.nextInt(humanPassengerCount + humanPedestrianCount);
                 if (rand < humanPassengerCount) {
-                    ((Human) passengers[rand]).setAsYou(true);
+                    human = (Human) passengers[rand];
                 } else {
-                    ((Human) pedestrians[rand - humanPassengerCount]).setAsYou(true);
+                    int index = rand - humanPassengerCount;
+                    human = (Human) pedestrians[index];
                 }
+
+                human.setAsYou(true);
             }
         }
 
